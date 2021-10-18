@@ -40,21 +40,31 @@ public class DruidControl : MonoBehaviour
         }
         
         
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) && grounded)
         {
-            body.velocity = new Vector2( body.velocity.x, jumpPower);
+            Jump();
         }
         
         
         //animation
         
         anim.SetBool("run", horizontalInput !=0);
+        anim.SetBool("grounded", grounded);
 }
 
        private void Jump()
        {
-       
-       }    
+           body.velocity = new Vector2( body.velocity.x, jumpPower);
+           anim.SetTrigger("jump");
+           grounded = false;
 
+       }
 
+       private void OnCollisionEnter2D(Collision2D collision)
+       {
+           if (collision.gameObject.tag == "Ground")
+           {
+               grounded = true;
+           }
+       }
 }
