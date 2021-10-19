@@ -7,6 +7,7 @@ public class DruidControl : MonoBehaviour
 
 
 {
+
     [SerializeField] private float moveSpeed = 8;
     [SerializeField] private float jumpPower = 3;
     private Rigidbody2D body;
@@ -14,9 +15,7 @@ public class DruidControl : MonoBehaviour
     private bool grounded;
 
     private void Awake()
-    {
-    
-        
+    {   
         body = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         
@@ -44,27 +43,43 @@ public class DruidControl : MonoBehaviour
         {
             Jump();
         }
-        
-        
+
+
         //animation
-        
+
         anim.SetBool("run", horizontalInput !=0);
         anim.SetBool("grounded", grounded);
-}
+    }
 
-       private void Jump()
-       {
-           body.velocity = new Vector2( body.velocity.x, jumpPower);
-           anim.SetTrigger("jump");
-           grounded = false;
+    private void Jump()
+    {
+        body.velocity = new Vector2( body.velocity.x, jumpPower);
+        anim.SetTrigger("jump");
+        grounded = false;
 
-       }
+    }
 
-       private void OnCollisionEnter2D(Collision2D collision)
-       {
-           if (collision.gameObject.tag == "Ground")
-           {
-               grounded = true;
-           }
-       }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            grounded = true;
+        }
+
+        if (collision.gameObject.tag == "GravPowerup")
+        {
+            //Destroy(collision.gameObject);
+            body.gravityScale = 0.4f;
+            GetComponent<SpriteRenderer>().color = Color.green;
+            StartCoroutine(StatReset());
+        }
+    }
+
+    private IEnumerator StatReset()
+    {
+        yield return new WaitForSeconds(7);
+        body.gravityScale = 1;
+        GetComponent<SpriteRenderer>().color = Color.white;
+
+    }
 }
