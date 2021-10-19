@@ -10,7 +10,7 @@ public class PowerupScript : MonoBehaviour
 
         if (collision.gameObject.tag == "Player")
         {
-            gameObject.SetActive(false);
+            this.enabled = false;
             StartCoroutine(ResetPowerup());
         }
     }
@@ -18,7 +18,7 @@ public class PowerupScript : MonoBehaviour
     private IEnumerator ResetPowerup()
     {
         yield return new WaitForSeconds(3);
-        gameObject.SetActive(true);
+        this.enabled = true;
 
     }
 

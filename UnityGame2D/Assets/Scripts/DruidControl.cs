@@ -68,18 +68,20 @@ public class DruidControl : MonoBehaviour
 
         if (collision.gameObject.tag == "GravPowerup")
         {
-            //Destroy(collision.gameObject);
+            collision.gameObject.SetActive(false);
             body.gravityScale = 0.4f;
             GetComponent<SpriteRenderer>().color = Color.green;
-            StartCoroutine(StatReset());
+            StartCoroutine(StatReset(collision.gameObject));
+
         }
     }
 
-    private IEnumerator StatReset()
+    private IEnumerator StatReset(GameObject collision)
     {
         yield return new WaitForSeconds(7);
         body.gravityScale = 1;
         GetComponent<SpriteRenderer>().color = Color.white;
+        collision.SetActive(true);
 
     }
 }
