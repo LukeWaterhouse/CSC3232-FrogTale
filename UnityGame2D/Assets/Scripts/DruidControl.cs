@@ -10,6 +10,8 @@ public class DruidControl : MonoBehaviour
 
     [SerializeField] private float moveSpeed = 8;
     [SerializeField] private float jumpPower = 3;
+    [SerializeField] private float gravPower = 0.1f;
+
     private Rigidbody2D body;
     private Animator anim;
     private bool grounded;
@@ -44,6 +46,8 @@ public class DruidControl : MonoBehaviour
             Jump();
         }
 
+       
+
 
         //animation
 
@@ -69,7 +73,7 @@ public class DruidControl : MonoBehaviour
         if (collision.gameObject.tag == "GravPowerup")
         {
             collision.gameObject.SetActive(false);
-            body.gravityScale = 0.4f;
+            body.gravityScale = gravPower;
             GetComponent<SpriteRenderer>().color = Color.green;
             StartCoroutine(StatReset(collision.gameObject));
 
@@ -78,8 +82,8 @@ public class DruidControl : MonoBehaviour
 
     private IEnumerator StatReset(GameObject collision)
     {
-        yield return new WaitForSeconds(7);
-        body.gravityScale = 1;
+        yield return new WaitForSeconds(3);
+        body.gravityScale = 1.8f;
         GetComponent<SpriteRenderer>().color = Color.white;
         collision.SetActive(true);
 
