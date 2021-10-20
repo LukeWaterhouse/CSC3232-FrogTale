@@ -15,12 +15,13 @@ public class DruidControl : MonoBehaviour
     private Rigidbody2D body;
     private Animator anim;
     private bool grounded;
+    private bool falling;
+    private CapsuleCollider2D collisionbody;
 
     private void Awake()
     {   
         body = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
-        
+        anim = GetComponent<Animator>();        
     }
 
     private void Update()
@@ -46,9 +47,6 @@ public class DruidControl : MonoBehaviour
             Jump();
         }
 
-       
-
-
         //animation
 
         anim.SetBool("run", horizontalInput !=0);
@@ -70,6 +68,21 @@ public class DruidControl : MonoBehaviour
             grounded = true;
         }
 
+        if(collision.gameObject.tag == "killObject")
+        {
+            anim.SetTrigger("death");
+            body.velocity = new Vector2(body.velocity.x, 8);
+            body.gravityScale = 5f;
+            GetComponent<CapsuleCollider2D>().enabled = false;
+            Camera.main.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+            Camera.main.GetComponent<CameraControl>().enabled = false;
+            StartCoroutine(Respawn(collision.gameObject));
+
+
+
+
+        }
+
         if (collision.gameObject.tag == "GravPowerup")
         {
             collision.gameObject.SetActive(false);
@@ -86,6 +99,21 @@ public class DruidControl : MonoBehaviour
         body.gravityScale = 1.8f;
         GetComponent<SpriteRenderer>().color = Color.white;
         collision.SetActive(true);
+
+    }
+
+    private IEnumerator Respawn(GameObject collision)
+    {
+
+        yield return new WaitForSeconds(3);
+        body.velocity = new Vector2(0, 0);
+        GetComponent<CapsuleCollider2D>().enabled = true;
+        body.gravityScale = 1.8f;
+        Camera.main.GetComponent<CameraControl>().enabled = true;
+        gameObject.transform.position = new Vector2(-8.35f, 1f);
+        anim.SetTrigger("jump");
+
+
 
     }
 }
