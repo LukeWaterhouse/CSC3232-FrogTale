@@ -9,12 +9,14 @@ public class Enemy : MonoBehaviour
     public float charFacing = 0;
 
     [SerializeField] private float moveSpeed = 8;
+    [SerializeField] private float jumpSpeed = 8;
     private Rigidbody2D body;
     // Start is called before the first frame update
     void Start()
     {
         Debug.Log("START");
         body = GetComponent<Rigidbody2D>();
+        Invoke("EnemyJump", 0.5f);
     }
 
     // Update is called once per frame
@@ -57,5 +59,16 @@ public class Enemy : MonoBehaviour
         transform.eulerAngles = new Vector3(0, 0, 0);
         //transform.localScale = new Vector2(charFacing*-1, 10);
         moveSpeed = moveSpeed * -1;
+    }
+
+    void EnemyJump()
+    {
+        float randomTime = Random.Range(2, 4);
+
+        // do you code
+        Debug.Log("JUMP");
+        body.velocity = new Vector2(body.velocity.y, jumpSpeed);
+        Invoke("EnemyJump", randomTime);
+
     }
 }

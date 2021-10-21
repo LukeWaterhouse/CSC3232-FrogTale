@@ -42,7 +42,7 @@ public class DruidControl : MonoBehaviour
         }
         
         
-        if (Input.GetKey(KeyCode.Space) && grounded)
+        if ((Input.GetKey(KeyCode.W))  && grounded)
         {
             Jump();
         }

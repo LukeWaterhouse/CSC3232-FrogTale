@@ -7,6 +7,9 @@ TagManager:
   - Ground
   - GravPowerup
   - killObject
+  - Wall
+  - rightPost
+  - leftPost
   layers:
   - Default
   - TransparentFX
