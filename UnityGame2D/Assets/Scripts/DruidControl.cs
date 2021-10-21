@@ -63,13 +63,18 @@ public class DruidControl : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+
+        Debug.Log(collision.gameObject.name);
+        Debug.Log(collision.collider.name);
+
         if (collision.gameObject.tag == "Ground")
         {
             grounded = true;
         }
 
-        if(collision.gameObject.tag == "killObject")
+        if(collision.collider.tag == "killObject")
         {
+            
             anim.SetTrigger("death");
             body.velocity = new Vector2(body.velocity.x, 8);
             body.gravityScale = 5f;
@@ -77,11 +82,8 @@ public class DruidControl : MonoBehaviour
             Camera.main.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
             Camera.main.GetComponent<CameraControl>().enabled = false;
             StartCoroutine(Respawn(collision.gameObject));
-
-
-
-
         }
+
 
         if (collision.gameObject.tag == "GravPowerup")
         {
@@ -104,8 +106,8 @@ public class DruidControl : MonoBehaviour
 
     private IEnumerator Respawn(GameObject collision)
     {
-
-        yield return new WaitForSeconds(3);
+        Debug.Log("Respawning");
+        yield return new WaitForSeconds(2);
         body.velocity = new Vector2(0, 0);
         GetComponent<CapsuleCollider2D>().enabled = true;
         body.gravityScale = 1.8f;
