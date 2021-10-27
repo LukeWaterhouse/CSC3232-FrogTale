@@ -13,6 +13,7 @@ public class AimScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        transform.position = GameObject.Find("Frog").transform.position;
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
         
     }

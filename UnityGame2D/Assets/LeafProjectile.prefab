@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3540734882389277431}
   - component: {fileID: 3540734882389277424}
   - component: {fileID: 3540734882389277429}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: LeafProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
