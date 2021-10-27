@@ -42,7 +42,7 @@ public class DruidControl : MonoBehaviour
         }
         
         
-        if ((Input.GetKey(KeyCode.W))  && grounded)
+        if ((Input.GetKey(KeyCode.Space))  && grounded)
         {
             Jump();
         }
@@ -72,7 +72,7 @@ public class DruidControl : MonoBehaviour
             grounded = true;
         }
 
-        if(collision.collider.tag == "killObject")
+        if((collision.collider.tag == "killObject") || (collision.collider.tag == "EnemyBody") || (collision.collider.tag == "enemyMask"))
         {
             
             anim.SetTrigger("death");
