@@ -17,6 +17,8 @@ TagManager:
   - key2
   - key3
   - checkpoint1
+  - checkpoint2
+  - checkpoint3
   layers:
   - Default
   - TransparentFX

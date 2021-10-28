@@ -4,41 +4,55 @@ using UnityEngine;
 
 public class checkpointScript : MonoBehaviour
 {
-
-    GameObject playerObject;
+    private Animator anim;
     public DruidControl druidControl;
+    public bool isCaptured1 = false;
+    public bool isCaptured2 = false;
+    public bool isCaptured3 = false;
     // Start is called before the first frame update
     void Awake()
     {
         druidControl = FindObjectOfType<DruidControl>();
-        playerObject = GameObject.Find("Player");
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
 
 
         Debug.Log("Collision?");
 
-        if (gameObject.tag == "checkpoint1" && collision.collider.tag == "Player")
+        if (gameObject.tag == "checkpoint1" && collision.GetComponent<Collider2D>().tag == "Player")
         {
             Debug.Log(" HELLOOO CHECKPOINT1");
-            druidControl.coord1 = new Vector2(24, 8);
-            Debug.Log("new spawn: " + druidControl.coord1);
-            
 
+            if (!isCaptured1)
+            {
+                anim.SetBool("isCaptured", true);
+                druidControl.coord1 = new Vector2(24, 8);
+            }
         }
 
-        if (gameObject.tag == "checkpoint2" && collision.collider.tag == "Player")
+        if (gameObject.tag == "checkpoint2" && collision.GetComponent<Collider2D>().tag == "Player")
         {
             Debug.Log("Checkpoint2");
+            if (!isCaptured2)
+            {
+                anim.SetBool("isCaptured", true);
+                druidControl.coord1 = new Vector2(73, 8);
+            }
         }
 
-        if (gameObject.tag == "checkpoint3" && collision.collider.tag == "Player")
+        if (gameObject.tag == "checkpoint3" && collision.GetComponent<Collider2D>().tag == "Player")
         {
             Debug.Log("Checkpoint3");
-            
+            if (!isCaptured3)
+            {
+                anim.SetBool("isCaptured", true);
+                druidControl.coord1 = new Vector2(112, 8);
+            }
+
         }
     }
 }
