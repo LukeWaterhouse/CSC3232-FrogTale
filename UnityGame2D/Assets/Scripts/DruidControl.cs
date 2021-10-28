@@ -18,6 +18,9 @@ public class DruidControl : MonoBehaviour
     private bool falling;
     private CapsuleCollider2D collisionbody;
 
+    public float coord1 = -300f;
+    public float coord2 = 100f;
+
     private void Awake()
     {   
         body = GetComponent<Rigidbody2D>();
@@ -112,7 +115,8 @@ public class DruidControl : MonoBehaviour
         GetComponent<CapsuleCollider2D>().enabled = true;
         body.gravityScale = 1.8f;
         Camera.main.GetComponent<CameraControl>().enabled = true;
-        gameObject.transform.position = new Vector2(-8.35f, 1f);
+        Debug.Log(coord1 +" "+ coord2);
+        gameObject.transform.position = new Vector2(-300f, 100f);
         anim.SetTrigger("jump");
 
 

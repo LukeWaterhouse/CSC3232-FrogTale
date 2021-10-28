@@ -13,6 +13,9 @@ TagManager:
   - Bullet
   - EnemyBody
   - enemyMask
+  - key1
+  - key2
+  - key3
   layers:
   - Default
   - TransparentFX
