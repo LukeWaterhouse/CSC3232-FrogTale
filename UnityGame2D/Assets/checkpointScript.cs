@@ -11,6 +11,7 @@ public class checkpointScript : MonoBehaviour
     void Awake()
     {
         druidControl = FindObjectOfType<DruidControl>();
+        playerObject = GameObject.Find("Player");
     }
 
     // Update is called once per frame
@@ -22,9 +23,10 @@ public class checkpointScript : MonoBehaviour
 
         if (gameObject.tag == "checkpoint1" && collision.collider.tag == "Player")
         {
-            Debug.Log("Checkpoint1");
-            druidControl.coord1 = -10.56625f;
-            druidControl.coord2 = 1.1f;
+            Debug.Log(" HELLOOO CHECKPOINT1");
+            druidControl.coord1 = new Vector2(24, 8);
+            Debug.Log("new spawn: " + druidControl.coord1);
+            
 
         }
 
