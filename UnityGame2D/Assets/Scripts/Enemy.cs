@@ -8,6 +8,8 @@ public class Enemy : MonoBehaviour
     Vector2 currentEulerAngles;
     public float charFacing = 0;
 
+    [SerializeField] public int Health = 40;
+
     [SerializeField] private float moveSpeed = 8;
     [SerializeField] private float jumpSpeed = 8;
     private Rigidbody2D body;
