@@ -49,6 +49,7 @@ public class checkpointScript : MonoBehaviour
             {
                 anim.SetBool("isCaptured", true);
                 druidControl.coord1 = new Vector2(73, 8);
+                hintHandler.Checkpoint2Reached = true;
             }
         }
 
@@ -59,6 +60,7 @@ public class checkpointScript : MonoBehaviour
             {
                 anim.SetBool("isCaptured", true);
                 druidControl.coord1 = new Vector2(112, 8);
+                hintHandler.Checkpoint3Reached = true;
             }
 
         }

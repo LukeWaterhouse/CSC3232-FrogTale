@@ -171,22 +171,5 @@ public class DruidControl : MonoBehaviour
         anim.SetTrigger("jump");
     }
 
-    public IEnumerator ShowHint(GameObject hint)
-    {
-
-        //Reset hint visibilities
-        areaComplete.GetComponent<SpriteRenderer>().enabled = false;
-        diedToBoss.GetComponent<SpriteRenderer>().enabled = false;
-        hasntGotKeyYet.GetComponent<SpriteRenderer>().enabled = false;
-        hasntShotYet.GetComponent<SpriteRenderer>().enabled = false;
-        notDamagedEnemyYet.GetComponent<SpriteRenderer>().enabled = false;
-
-
-
-        //Show hint passed to function for 6 seconds
-        Debug.Log("Show hint function");
-        hint.GetComponent<SpriteRenderer>().enabled = true;
-        yield return new WaitForSeconds(6);
-        hint.GetComponent<SpriteRenderer>().enabled = false;
-    }
+    
 }

@@ -1320,7 +1320,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 146546260}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -126.57, y: -8.46, z: 0}
+  m_LocalPosition: {x: -41.32, y: -3.18, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 498450861}
@@ -17176,7 +17176,9 @@ MonoBehaviour:
   hasntGotKeyYet: {fileID: 0}
   hasntShotYet: {fileID: 0}
   notDamagedEnemyYet: {fileID: 0}
-  hasShownAreaCompleteHint: 0
+  hasShownAreaComplete1Hint: 0
+  hasShownAreaComplete2Hint: 0
+  hasShownAreaComplete3Hint: 0
   Key1Captured: 0
   Key2Captured: 0
   Key3Captured: 0
@@ -17763,8 +17765,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1852760241}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 31.82, y: 29.37, z: 0}
-  m_LocalScale: {x: 0.34, y: 0.34, z: 1}
+  m_LocalPosition: {x: 31.93, y: 29.05, z: 0}
+  m_LocalScale: {x: 0.32, y: 0.32, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -17895,8 +17897,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1880866471}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 41.94, y: 17.23, z: 0}
-  m_LocalScale: {x: 0.34, y: 0.34, z: 1}
+  m_LocalPosition: {x: 41.37, y: 17.19, z: 0}
+  m_LocalScale: {x: 0.32, y: 0.32, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -18164,11 +18166,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3111953648526494719, guid: f564dc44b1681b34fbfa41e5ccf16dc2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -32
+      value: -32.04
       objectReference: {fileID: 0}
     - target: {fileID: 3111953648526494719, guid: f564dc44b1681b34fbfa41e5ccf16dc2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -13.5
+      value: -14.02
       objectReference: {fileID: 0}
     - target: {fileID: 3111953648526494719, guid: f564dc44b1681b34fbfa41e5ccf16dc2, type: 3}
       propertyPath: m_LocalPosition.z

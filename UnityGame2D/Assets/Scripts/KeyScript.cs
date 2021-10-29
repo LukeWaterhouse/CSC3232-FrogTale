@@ -49,6 +49,7 @@ public class KeyScript : MonoBehaviour
             Debug.Log("KEY");
             Destroy(gameObject);
             Destroy(barrier2Body);
+            hintHandler.Key2Captured = true;
         }
 
         if (gameObject.tag == "key3" && collision.collider.tag == "Player")
@@ -56,6 +57,7 @@ public class KeyScript : MonoBehaviour
             Debug.Log("KEY");
             Destroy(gameObject);
             Destroy(barrier3Body);
+            hintHandler.Key3Captured = true;
         }
     }
 
