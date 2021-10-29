@@ -19,6 +19,8 @@ TagManager:
   - checkpoint1
   - checkpoint2
   - checkpoint3
+  - greenPortal
+  - LeafSlinger
   layers:
   - Default
   - TransparentFX
@@ -31,7 +33,7 @@ TagManager:
   - Enemy(Bullet)
   - EnemyPost
   - Checkpoint
-  - 
+  - Portal
   - 
   - 
   - 

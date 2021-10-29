@@ -9,14 +9,18 @@ public class enemyBodyHit : MonoBehaviour
     GameObject mainBody;
     [SerializeField] private float dmgAnimationDuration = 0.1f;
     public GameObject key3;
-
+    public GameObject bossBounce;
     public Enemy enemyScript;
+
 
     void Awake()
     {
         mainBody = GameObject.Find("enemyAnimator");
         enemyScript = FindObjectOfType<Enemy>();
         key3 = GameObject.Find("Key3");
+        bossBounce = GameObject.Find("boingBossArea");
+        bossBounce.SetActive(false);
+
 
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -27,7 +31,7 @@ public class enemyBodyHit : MonoBehaviour
             Debug.Log("HIITT");
 
 
-            if (enemyScript.Health == 1)
+            if (enemyScript.Health <= 1)
             {
                 Debug.Log("DEATHHH");
                 Death();
@@ -35,7 +39,6 @@ public class enemyBodyHit : MonoBehaviour
             else
             {
                 StartCoroutine(DamageSequence());
-
             }
 
 
@@ -63,5 +66,6 @@ public class enemyBodyHit : MonoBehaviour
         key3.transform.position = enemyPosition.position;
         key3.tag = "key3";
         key3.GetComponent<Rigidbody2D>().gravityScale = 1;
+        bossBounce.SetActive(true);
     }
 }

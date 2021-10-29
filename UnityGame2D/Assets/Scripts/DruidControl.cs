@@ -72,6 +72,11 @@ public class DruidControl : MonoBehaviour
             grounded = true;
         }
 
+        if (collision.collider.tag == "greenPortal")
+        {
+            gameObject.transform.position = new Vector2(59.5f, 32f);
+        }
+
         if((collision.collider.tag == "killObject") || (collision.collider.tag == "EnemyBody") || (collision.collider.tag == "enemyMask"))
         {
             
