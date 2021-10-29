@@ -13,22 +13,32 @@ public class DruidControl : MonoBehaviour
     [SerializeField] private float gravPower = 0.1f;
 
 
+    //Referencing Frogs object components
     private Rigidbody2D body;
-    private Animator anim;
-    private bool grounded;
-    private bool falling;
+    private Animator anim;   
     private CapsuleCollider2D collisionbody;
 
+
+    //grounded or falling bools
+    private bool grounded;
+    private bool falling;
+
+
+    //Picked up LeafSlingerCheck
     public bool leafSlingerPickedUp = false;
+
+    //LeafSlinger aim object
     GameObject shootingObject;
+
+    //Respawn Location(Used for checkpoints)
     public Vector2 coord1;
 
     //Hint game objects
-    GameObject areaComplete;
-    GameObject diedToBoss;
-    GameObject hasntGotKeyYet;
-    GameObject hasntShotYet;
-    GameObject notDamagedEnemyYet;
+    public GameObject areaComplete;
+    public GameObject diedToBoss;
+    public GameObject hasntGotKeyYet;
+    public GameObject hasntShotYet;
+    public GameObject notDamagedEnemyYet;
 
     private void Awake()
     {   
@@ -47,18 +57,20 @@ public class DruidControl : MonoBehaviour
         areaComplete = GameObject.Find("AreaComplete");
         diedToBoss = GameObject.Find("DiedToBoss");
         hasntGotKeyYet = GameObject.Find("HasntGotKeyYet");
-        hasntShotYet = GameObject.Find("HasntShotYet");
+        hasntShotYet = GameObject.Find("HasShotYet");
         notDamagedEnemyYet = GameObject.Find("NotDamagedEnemyYet");
+
     }
 
     private void Update()
     {
 
-        float horizontalInput = Input.GetAxis("Horizontal");
-        //changes velocity based on key inputs
-        body.velocity = new Vector2(horizontalInput * moveSpeed, body.velocity.y);
-        //jump
 
+        //Character Controller
+        float horizontalInput = Input.GetAxis("Horizontal");
+        body.velocity = new Vector2(horizontalInput * moveSpeed, body.velocity.y);
+
+        //Flip character on direction change
         if (horizontalInput > 0.01f)
         {
             transform.localScale = new Vector2(5,5);
@@ -68,20 +80,25 @@ public class DruidControl : MonoBehaviour
             transform.localScale = new Vector2(-5,5);
         }
         
-        
+        //Jumping
         if ((Input.GetKey(KeyCode.Space))  && grounded)
         {
             Jump();
         }
 
-        //animation
-
+        //Setting animation based on state
         anim.SetBool("run", horizontalInput !=0);
         anim.SetBool("grounded", grounded);
     }
 
+
+
+
+
+
     private void Jump()
     {
+        
         body.velocity = new Vector2( body.velocity.x, jumpPower);
         anim.SetTrigger("jump");
         grounded = false;
@@ -152,5 +169,24 @@ public class DruidControl : MonoBehaviour
         Debug.Log(coord1);
         gameObject.transform.position = coord1;
         anim.SetTrigger("jump");
+    }
+
+    public IEnumerator ShowHint(GameObject hint)
+    {
+
+        //Reset hint visibilities
+        areaComplete.GetComponent<SpriteRenderer>().enabled = false;
+        diedToBoss.GetComponent<SpriteRenderer>().enabled = false;
+        hasntGotKeyYet.GetComponent<SpriteRenderer>().enabled = false;
+        hasntShotYet.GetComponent<SpriteRenderer>().enabled = false;
+        notDamagedEnemyYet.GetComponent<SpriteRenderer>().enabled = false;
+
+
+
+        //Show hint passed to function for 6 seconds
+        Debug.Log("Show hint function");
+        hint.GetComponent<SpriteRenderer>().enabled = true;
+        yield return new WaitForSeconds(6);
+        hint.GetComponent<SpriteRenderer>().enabled = false;
     }
 }

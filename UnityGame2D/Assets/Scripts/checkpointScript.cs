@@ -9,11 +9,18 @@ public class checkpointScript : MonoBehaviour
     public bool isCaptured1 = false;
     public bool isCaptured2 = false;
     public bool isCaptured3 = false;
+
+    //Getting Hinthandler
+    public hintHandler hintHandler; 
+
+
+
     // Start is called before the first frame update
     void Awake()
     {
         druidControl = FindObjectOfType<DruidControl>();
         anim = GetComponent<Animator>();
+        hintHandler = FindObjectOfType<hintHandler>();
     }
 
     // Update is called once per frame
@@ -31,6 +38,7 @@ public class checkpointScript : MonoBehaviour
             {
                 anim.SetBool("isCaptured", true);
                 druidControl.coord1 = new Vector2(24, 8);
+                hintHandler.Checkpoint1Reached = true;
             }
         }
 

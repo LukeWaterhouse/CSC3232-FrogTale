@@ -4,15 +4,29 @@ using UnityEngine;
 
 public class KeyScript : MonoBehaviour
 {
+
+    public DruidControl druidControl;
+
+    //Getting Hinthandler
+    public hintHandler hintHandler;
+
     GameObject barrier1Body;
     GameObject barrier2Body;
     GameObject barrier3Body;
 
+    GameObject checkPoint1;
+    GameObject checkPoint2;
+    GameObject checkPoint3;
+
     void Awake()
     {
+        druidControl = FindObjectOfType<DruidControl>();
+
         barrier1Body = GameObject.Find("Barrier1");
         barrier2Body = GameObject.Find("Barrier2");
         barrier3Body = GameObject.Find("Barrier3");
+
+        hintHandler = FindObjectOfType<hintHandler>();
 
     }
     // Start is called before the first frame update
@@ -27,6 +41,7 @@ public class KeyScript : MonoBehaviour
             Debug.Log("KEY");
             Destroy(gameObject);
             Destroy(barrier1Body);
+            hintHandler.Key1Captured = true;
         }
 
         if (gameObject.tag == "key2" && collision.collider.tag == "Player")
