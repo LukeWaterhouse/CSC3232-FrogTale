@@ -21,6 +21,7 @@ TagManager:
   - checkpoint3
   - greenPortal
   - LeafSlinger
+  - purplePortal
   layers:
   - Default
   - TransparentFX

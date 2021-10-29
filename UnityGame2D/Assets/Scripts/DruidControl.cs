@@ -7,10 +7,11 @@ public class DruidControl : MonoBehaviour
 
 
 {
-
+    //Frog player stats
     [SerializeField] private float moveSpeed = 8;
     [SerializeField] private float jumpPower = 3;
     [SerializeField] private float gravPower = 0.1f;
+
 
     private Rigidbody2D body;
     private Animator anim;
@@ -18,13 +19,36 @@ public class DruidControl : MonoBehaviour
     private bool falling;
     private CapsuleCollider2D collisionbody;
 
+    public bool leafSlingerPickedUp = false;
+    GameObject shootingObject;
     public Vector2 coord1;
+
+    //Hint game objects
+    GameObject areaComplete;
+    GameObject diedToBoss;
+    GameObject hasntGotKeyYet;
+    GameObject hasntShotYet;
+    GameObject notDamagedEnemyYet;
 
     private void Awake()
     {   
+
+
         body = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();  
+        anim = GetComponent<Animator>();
+        shootingObject = GameObject.Find("Aim");
         coord1 = new Vector2(-8, 1);
+
+        shootingObject.GetComponent<Shooting>().enabled = false;
+        shootingObject.GetComponent<AimScript>().enabled = false;
+
+
+        //Find hint objects
+        areaComplete = GameObject.Find("AreaComplete");
+        diedToBoss = GameObject.Find("DiedToBoss");
+        hasntGotKeyYet = GameObject.Find("HasntGotKeyYet");
+        hasntShotYet = GameObject.Find("HasntShotYet");
+        notDamagedEnemyYet = GameObject.Find("NotDamagedEnemyYet");
     }
 
     private void Update()
@@ -75,6 +99,14 @@ public class DruidControl : MonoBehaviour
         if (collision.collider.tag == "greenPortal")
         {
             gameObject.transform.position = new Vector2(59.5f, 32f);
+        }
+
+        if(collision.collider.tag == "LeafSlinger")
+        {
+            leafSlingerPickedUp = true;
+            shootingObject.GetComponent<Shooting>().enabled = true;
+            shootingObject.GetComponent<AimScript>().enabled = true;
+            Destroy(collision.gameObject);
         }
 
         if((collision.collider.tag == "killObject") || (collision.collider.tag == "EnemyBody") || (collision.collider.tag == "enemyMask"))
