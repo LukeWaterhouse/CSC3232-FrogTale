@@ -16,6 +16,7 @@ public class enemyBodyHit : MonoBehaviour
     {
         mainBody = GameObject.Find("enemyAnimator");
         enemyScript = FindObjectOfType<Enemy>();
+        key3 = GameObject.Find("Key3");
 
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -26,10 +27,9 @@ public class enemyBodyHit : MonoBehaviour
             Debug.Log("HIITT");
 
 
-            if (enemyScript.Health == 0)
+            if (enemyScript.Health == 1)
             {
                 Debug.Log("DEATHHH");
-                Destroy(GameObject.Find("Enemy"));
                 Death();
             }
             else
@@ -57,10 +57,11 @@ public class enemyBodyHit : MonoBehaviour
     void Death()
     {
         Debug.Log("DEATHHH");
-        Transform enemyPosition = gameObject.transform;
-        Debug.Log(enemyPosition);
+        Transform enemyPosition = GameObject.Find("Enemy").transform;
+        Debug.Log(enemyPosition.position);
         Destroy(GameObject.Find("Enemy"));
-        GameObject key3Object = Instantiate(key3, enemyPosition);
-        key3Object.tag = "key3";
+        key3.transform.position = enemyPosition.position;
+        key3.tag = "key3";
+        key3.GetComponent<Rigidbody2D>().gravityScale = 1;
     }
 }
