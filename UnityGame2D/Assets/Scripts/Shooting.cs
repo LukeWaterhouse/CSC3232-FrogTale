@@ -9,6 +9,15 @@ public class Shooting : MonoBehaviour
     public GameObject leafProjectile;
     public float projectileForce = 20f;
 
+    //Instantiate Hinthandler
+    public hintHandler hintHandler;
+
+
+    void Awake()
+    {
+        //Find Hinthandler
+        hintHandler = FindObjectOfType<hintHandler>();
+    }
     // Update is called once per frame
     void Update()
     {
@@ -17,6 +26,8 @@ public class Shooting : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             Fire();
+            hintHandler.HasShotYet = true;
+            Debug.Log(hintHandler.HasShotYet);
         }
         
     }

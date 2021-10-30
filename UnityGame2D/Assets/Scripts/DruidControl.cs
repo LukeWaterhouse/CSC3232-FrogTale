@@ -18,6 +18,8 @@ public class DruidControl : MonoBehaviour
     private Animator anim;   
     private CapsuleCollider2D collisionbody;
 
+    //Instantiate Hinthandler
+    public hintHandler hintHandler;
 
     //grounded or falling bools
     private bool grounded;
@@ -33,12 +35,7 @@ public class DruidControl : MonoBehaviour
     //Respawn Location(Used for checkpoints)
     public Vector2 coord1;
 
-    //Hint game objects
-    public GameObject areaComplete;
-    public GameObject diedToBoss;
-    public GameObject hasntGotKeyYet;
-    public GameObject hasntShotYet;
-    public GameObject notDamagedEnemyYet;
+    
 
     private void Awake()
     {   
@@ -52,13 +49,10 @@ public class DruidControl : MonoBehaviour
         shootingObject.GetComponent<Shooting>().enabled = false;
         shootingObject.GetComponent<AimScript>().enabled = false;
 
+        //Find Hinthandler
+        hintHandler = FindObjectOfType<hintHandler>();
 
-        //Find hint objects
-        areaComplete = GameObject.Find("AreaComplete");
-        diedToBoss = GameObject.Find("DiedToBoss");
-        hasntGotKeyYet = GameObject.Find("HasntGotKeyYet");
-        hasntShotYet = GameObject.Find("HasShotYet");
-        notDamagedEnemyYet = GameObject.Find("NotDamagedEnemyYet");
+        
 
     }
 
@@ -105,9 +99,17 @@ public class DruidControl : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.GetComponent<Collider2D>().tag == "purplePortal")
+        {
+            hintHandler.EnteredPurplePortal = true;
+            Debug.Log(hintHandler.EnteredPurplePortal);
+        }
+    }
 
+        private void OnCollisionEnter2D(Collision2D collision)
+    {
         if (collision.gameObject.tag == "Ground")
         {
             grounded = true;
@@ -124,9 +126,15 @@ public class DruidControl : MonoBehaviour
             shootingObject.GetComponent<Shooting>().enabled = true;
             shootingObject.GetComponent<AimScript>().enabled = true;
             Destroy(collision.gameObject);
+            hintHandler.LeafSlingerAcquired = true;
+            hintHandler.EnteredPurplePortal = false;
         }
 
-        if((collision.collider.tag == "killObject") || (collision.collider.tag == "EnemyBody") || (collision.collider.tag == "enemyMask"))
+        
+
+
+
+        if ((collision.collider.tag == "killObject") || (collision.collider.tag == "EnemyBody") || (collision.collider.tag == "enemyMask"))
         {
             
             anim.SetTrigger("death");
