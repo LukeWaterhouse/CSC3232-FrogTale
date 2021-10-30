@@ -35,6 +35,10 @@ public class DruidControl : MonoBehaviour
     //Respawn Location(Used for checkpoints)
     public Vector2 coord1;
 
+
+    [SerializeField] public PhysicsMaterial2D iceBlockMaterial;
+    GameObject iceBlock;
+
     
 
     private void Awake()
@@ -52,7 +56,12 @@ public class DruidControl : MonoBehaviour
         //Find Hinthandler
         hintHandler = FindObjectOfType<hintHandler>();
 
-        
+        iceBlock = GameObject.Find("iceBlock");
+        iceBlockMaterial.friction = 9999;
+
+
+
+
 
     }
 
@@ -130,7 +139,19 @@ public class DruidControl : MonoBehaviour
             hintHandler.EnteredPurplePortal = false;
         }
 
-        
+        if (collision.collider.tag == "IcePowerup")
+        {
+            Debug.Log("ICEEEE");
+            Destroy(collision.gameObject);
+            iceBlockMaterial.friction = 0;
+            iceBlock.GetComponent<SpriteRenderer>().color = Color.white;
+
+
+        }
+
+
+
+
 
 
 

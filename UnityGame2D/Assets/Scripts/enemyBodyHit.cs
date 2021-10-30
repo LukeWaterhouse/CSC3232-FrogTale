@@ -21,8 +21,6 @@ public class enemyBodyHit : MonoBehaviour
     Random rand = new Random();
     int randomNumber;
 
-
-
     void Awake()
     {
         mainBody = GameObject.Find("enemyAnimator");
@@ -62,7 +60,6 @@ public class enemyBodyHit : MonoBehaviour
                 }
             }
         }
-
     }
 
     IEnumerator DamageSequence()

@@ -40,7 +40,6 @@ public class Enemy : MonoBehaviour
             FlipCharacterLeft();
 
         }
-
     }
 
     private void FlipCharacterRight()
