@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = System.Random;
 
 public class enemyBodyHit : MonoBehaviour
 {
@@ -11,6 +12,15 @@ public class enemyBodyHit : MonoBehaviour
     public GameObject key3;
     public GameObject bossBounce;
     public Enemy enemyScript;
+    public Color DefaultColor = Color.white;
+
+    public bool AngryActivated = false;
+
+    public GameObject portalCover;
+
+    Random rand = new Random();
+    int randomNumber;
+
 
 
     void Awake()
@@ -21,16 +31,16 @@ public class enemyBodyHit : MonoBehaviour
         bossBounce = GameObject.Find("boingBossArea");
         bossBounce.SetActive(false);
 
+        portalCover = GameObject.Find("PortalCover");
+        portalCover.SetActive(false);
+
 
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "Bullet")
         {
-
             Debug.Log("HIITT");
-
-
             if (enemyScript.Health <= 1)
             {
                 Debug.Log("DEATHHH");
@@ -39,20 +49,27 @@ public class enemyBodyHit : MonoBehaviour
             else
             {
                 StartCoroutine(DamageSequence());
+                if (enemyScript.Health < 30 && !AngryActivated)
+                {                      
+                    randomNumber = rand.Next(7);
+                    Debug.Log("Random number:" + randomNumber);
+
+                    if (randomNumber == 1)
+                    {
+                        AngryMode();
+                        AngryActivated = true;
+                    }                   
+                }
             }
-
-
         }
 
-
     }
-
 
     IEnumerator DamageSequence()
     {
         mainBody.GetComponent<SpriteRenderer>().color = Color.red;
         yield return new WaitForSeconds(dmgAnimationDuration);
-        mainBody.GetComponent<SpriteRenderer>().color = Color.white;
+        mainBody.GetComponent<SpriteRenderer>().color = DefaultColor;
         enemyScript.Health -= 1;
         Debug.Log(enemyScript.Health);
     }
@@ -67,5 +84,20 @@ public class enemyBodyHit : MonoBehaviour
         key3.tag = "key3";
         key3.GetComponent<Rigidbody2D>().gravityScale = 1;
         bossBounce.SetActive(true);
+        portalCover.SetActive(true);
+    }
+
+
+    void AngryMode()
+    {
+
+        Debug.Log("ANGRYMODE");
+
+        mainBody.GetComponent<SpriteRenderer>().color = Color.magenta;
+        DefaultColor = Color.magenta;
+
+        enemyScript.moveSpeed *= 2;
+        enemyScript.jumpSpeed = 10;
+
     }
 }

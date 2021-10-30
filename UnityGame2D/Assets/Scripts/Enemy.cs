@@ -8,10 +8,10 @@ public class Enemy : MonoBehaviour
     Vector2 currentEulerAngles;
     public float charFacing = 0;
 
-    [SerializeField] public int Health = 40;
+    [SerializeField] public int Health = 60;
 
-    [SerializeField] private float moveSpeed = 8;
-    [SerializeField] private float jumpSpeed = 8;
+    [SerializeField] public float moveSpeed = 4;
+    [SerializeField] public float jumpSpeed = 8;
     private Rigidbody2D body;
     // Start is called before the first frame update
     void Start()
@@ -65,7 +65,7 @@ public class Enemy : MonoBehaviour
 
     void EnemyJump()
     {
-        float randomTime = Random.Range(2, 4);
+        float randomTime = Random.Range(3, 5);
 
         // do you code
         Debug.Log("JUMP");
