@@ -6,16 +6,15 @@ public class AimScript : MonoBehaviour
 {
     public Rigidbody2D rb;
     public Camera cam;
-
     Vector2 mousePos;
-    // Start is called before the first frame update
 
-    // Update is called once per frame
     void Update()
     {
+        //Lock shooter to the frogs position
         transform.position = GameObject.Find("Frog").transform.position;
-        mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-        
+
+        //Get mouse position
+        mousePos = cam.ScreenToWorldPoint(Input.mousePosition);      
     }
 
     void FixedUpdate()

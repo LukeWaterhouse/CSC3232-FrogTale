@@ -5,13 +5,11 @@ using UnityEngine;
 
 public class DruidControl : MonoBehaviour
 
-
 {
     //Frog player stats
     [SerializeField] private float moveSpeed = 8;
     [SerializeField] private float jumpPower = 3;
     [SerializeField] private float gravPower = 0.1f;
-
 
     //Referencing Frogs object components
     private Rigidbody2D body;
@@ -36,41 +34,35 @@ public class DruidControl : MonoBehaviour
     public Vector2 coord1;
 
 
+    //Referencing physics materials
     [SerializeField] public PhysicsMaterial2D iceBlockMaterial;
     [SerializeField] public PhysicsMaterial2D highFrictionMaterial;
 
     GameObject iceBlock;
 
-    
-
     private void Awake()
     {   
-
-
         body = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        shootingObject = GameObject.Find("Aim");
-        coord1 = new Vector2(-8, 1);
 
+        //initially disable the shooting scripts
+        shootingObject = GameObject.Find("Aim");
         shootingObject.GetComponent<Shooting>().enabled = false;
         shootingObject.GetComponent<AimScript>().enabled = false;
 
+        //respawn point
+        coord1 = new Vector2(-8, 1);
+     
         //Find Hinthandler
         hintHandler = FindObjectOfType<hintHandler>();
 
+        //Get iceblock and set material to high friction
         iceBlock = GameObject.Find("iceBlock");
         iceBlock.GetComponent<BoxCollider2D>().sharedMaterial = highFrictionMaterial;
-
-
-
-
-
     }
 
     private void Update()
     {
-
-
         //Character Controller
         float horizontalInput = Input.GetAxis("Horizontal");
         body.velocity = new Vector2(horizontalInput * moveSpeed, body.velocity.y);
@@ -96,18 +88,11 @@ public class DruidControl : MonoBehaviour
         anim.SetBool("grounded", grounded);
     }
 
-
-
-
-
-
     private void Jump()
-    {
-        
+    {       
         body.velocity = new Vector2( body.velocity.x, jumpPower);
         anim.SetTrigger("jump");
         grounded = false;
-
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -115,11 +100,10 @@ public class DruidControl : MonoBehaviour
         if (collision.GetComponent<Collider2D>().tag == "purplePortal")
         {
             hintHandler.EnteredPurplePortal = true;
-            Debug.Log(hintHandler.EnteredPurplePortal);
         }
     }
 
-        private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Ground")
         {
@@ -134,22 +118,22 @@ public class DruidControl : MonoBehaviour
         if(collision.collider.tag == "LeafSlinger")
         {
             leafSlingerPickedUp = true;
+            //enable shooting scripts
             shootingObject.GetComponent<Shooting>().enabled = true;
             shootingObject.GetComponent<AimScript>().enabled = true;
             Destroy(collision.gameObject);
+            //notify hint handler
             hintHandler.LeafSlingerAcquired = true;
             hintHandler.EnteredPurplePortal = false;
         }
 
         if (collision.collider.tag == "IcePowerup")
         {
-            Debug.Log("ICEEEE");
             Destroy(collision.gameObject);
+            //change ice block physics material
             iceBlock.GetComponent<BoxCollider2D>().sharedMaterial = iceBlockMaterial;
             iceBlock.GetComponent<SpriteRenderer>().color = Color.white;
             hintHandler.HasIcePowerup = true;
-
-
         }
 
         if (collision.collider.tag == "StoneWallCollider")
@@ -157,56 +141,48 @@ public class DruidControl : MonoBehaviour
             hintHandler.HitStoneWall = true;
         }
 
-
-
-
-
-
-
+        //If player hits kill object run death sequence and start respawn coroutine
         if ((collision.collider.tag == "killObject") || (collision.collider.tag == "EnemyBody") || (collision.collider.tag == "enemyMask"))
-        {
-            
+        {           
             anim.SetTrigger("death");
             body.velocity = new Vector2(body.velocity.x, 8);
             body.gravityScale = 5f;
             GetComponent<CapsuleCollider2D>().enabled = false;
             Camera.main.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
             Camera.main.GetComponent<CameraControl>().enabled = false;
+
             StartCoroutine(Respawn(collision.gameObject));
         }
 
-
+        //If collide with melon change gravity and tint green
         if (collision.gameObject.tag == "GravPowerup")
         {
             collision.gameObject.SetActive(false);
             body.gravityScale = gravPower;
             GetComponent<SpriteRenderer>().color = Color.green;
             StartCoroutine(StatReset(collision.gameObject));
-
         }
     }
 
-    private IEnumerator StatReset(GameObject collision)
-    {
-        yield return new WaitForSeconds(3);
-        body.gravityScale = 1.8f;
-        GetComponent<SpriteRenderer>().color = Color.white;
-        collision.SetActive(true);
+        private IEnumerator StatReset(GameObject collision)
+        {
+            yield return new WaitForSeconds(3);
+            body.gravityScale = 1.8f;
+            GetComponent<SpriteRenderer>().color = Color.white;
+            collision.SetActive(true);
+        }
 
-    }
-
-    private IEnumerator Respawn(GameObject collision)
-    {
-        Debug.Log("Respawning");
-        yield return new WaitForSeconds(2);
-        body.velocity = new Vector2(0, 0);
-        GetComponent<CapsuleCollider2D>().enabled = true;
-        body.gravityScale = 1.8f;
-        Camera.main.GetComponent<CameraControl>().enabled = true;
-        Debug.Log(coord1);
-        gameObject.transform.position = coord1;
-        anim.SetTrigger("jump");
-    }
+        private IEnumerator Respawn(GameObject collision)
+        {
+            yield return new WaitForSeconds(2);
+            body.velocity = new Vector2(0, 0);
+            GetComponent<CapsuleCollider2D>().enabled = true;
+            body.gravityScale = 1.8f;
+            Camera.main.GetComponent<CameraControl>().enabled = true;
+            Debug.Log(coord1);
+            gameObject.transform.position = coord1;
+            anim.SetTrigger("jump");
+        }
 
     
 }

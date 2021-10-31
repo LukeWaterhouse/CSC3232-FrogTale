@@ -4,32 +4,24 @@ using UnityEngine;
 
 public class Shooting : MonoBehaviour
 {
-    // Start is called before the first frame update
     [SerializeField] public Transform firePoint;
     public GameObject leafProjectile;
     public float projectileForce = 20f;
 
-    //Instantiate Hinthandler
     public hintHandler hintHandler;
-
 
     void Awake()
     {
-        //Find Hinthandler
         hintHandler = FindObjectOfType<hintHandler>();
     }
-    // Update is called once per frame
-    void Update()
-    {
 
-        
+    void Update()
+    {       
         if (Input.GetButtonDown("Fire1"))
         {
             Fire();
             hintHandler.HasShotYet = true;
-            Debug.Log(hintHandler.HasShotYet);
-        }
-        
+        }        
     }
 
     void Fire()

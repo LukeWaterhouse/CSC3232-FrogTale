@@ -51,8 +51,6 @@ public class hintHandler : MonoBehaviour
     public bool hasShownAngryHint = false;
 
 
-
-
     // Start is called before the first frame update
     void Awake()
     {
@@ -123,14 +121,9 @@ public class hintHandler : MonoBehaviour
         //Boss becomes Angry
         if (bossIsAngry && !hasShownAngryHint)
         {
-            Debug.Log("ANGRY HINT");
             StartCoroutine(ShowAngryBossHint(bossIsAngryHint));
             hasShownAngryHint = true;
         }
-
-        
-
-
     }
 
     //Boss is angry method:
@@ -190,7 +183,7 @@ public class hintHandler : MonoBehaviour
             hint.GetComponent<SpriteRenderer>().enabled = true;
             yield return new WaitForSeconds(10);
             hint.GetComponent<SpriteRenderer>().enabled = false;
-            //Break out of loop
+            //Make loop restart 
             ShownShootLeafSlingerHintYet = false;
         }
     }
@@ -207,7 +200,7 @@ public class hintHandler : MonoBehaviour
             hint.GetComponent<SpriteRenderer>().enabled = true;
             yield return new WaitForSeconds(6);
             hint.GetComponent<SpriteRenderer>().enabled = false;
-            //Break out of loop
+            //Make loop restart 
             hasShownAreaComplete1Hint = false;
         }
     }
@@ -221,7 +214,7 @@ public class hintHandler : MonoBehaviour
             hint.GetComponent<SpriteRenderer>().enabled = true;
             yield return new WaitForSeconds(6);
             hint.GetComponent<SpriteRenderer>().enabled = false;
-            //Break out of loop
+            //Make loop restart 
             hasShownAreaComplete2Hint = false;
         }
     }
@@ -235,13 +228,10 @@ public class hintHandler : MonoBehaviour
             hint.GetComponent<SpriteRenderer>().enabled = true;
             yield return new WaitForSeconds(6);
             hint.GetComponent<SpriteRenderer>().enabled = false;
-            //Break out of loop
+            //Make loop restart 
             hasShownAreaComplete3Hint = false;
         }
     }
-
-    
-
 
     //Reset hint visibility Method 
 
@@ -254,7 +244,5 @@ public class hintHandler : MonoBehaviour
         thisIsHeavy.GetComponent<SpriteRenderer>().enabled = false;
         bossIsAngryHint.GetComponent<SpriteRenderer>().enabled = false;
 }
-
-    // Update is called once per frame
     
 }

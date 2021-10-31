@@ -5,62 +5,62 @@ using Random = System.Random;
 
 public class enemyBodyHit : MonoBehaviour
 {
-    // Start is called before the first frame updat
-
+    //Body variables
     GameObject mainBody;
     [SerializeField] private float dmgAnimationDuration = 0.1f;
     public GameObject key3;
     public GameObject bossBounce;
     public Enemy enemyScript;
     public Color DefaultColor = Color.white;
-
     public bool AngryActivated = false;
-
     public GameObject portalCover;
 
     Random rand = new Random();
     int randomNumber;
 
+    //Hint Handler
     public hintHandler hintHandler;
 
     void Awake()
     {
+        //Finding things
         mainBody = GameObject.Find("enemyAnimator");
         enemyScript = FindObjectOfType<Enemy>();
         key3 = GameObject.Find("Key3");
         bossBounce = GameObject.Find("boingBossArea");
         bossBounce.SetActive(false);
-
         portalCover = GameObject.Find("PortalCover");
         portalCover.SetActive(false);
 
         //Find Hinthandler
         hintHandler = FindObjectOfType<hintHandler>();
-
-
     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "Bullet")
         {
-            Debug.Log("HIITT");
+
+            //Run Death function if health is 0
             if (enemyScript.Health <= 1)
             {
-                Debug.Log("DEATHHH");
                 Death();
             }
             else
-            {
+            {                
                 StartCoroutine(DamageSequence());
+
+                //If below 30 health 1/7 chance to go into angry mode
                 if (enemyScript.Health < 30 && !AngryActivated)
                 {                      
                     randomNumber = rand.Next(7);
-                    Debug.Log("Random number:" + randomNumber);
 
                     if (randomNumber == 1)
                     {
                         AngryMode();
                         AngryActivated = true;
+
+                        //notify hint handler boss is angry
                         hintHandler.bossIsAngry = true;
                     }                   
                 }
@@ -74,14 +74,11 @@ public class enemyBodyHit : MonoBehaviour
         yield return new WaitForSeconds(dmgAnimationDuration);
         mainBody.GetComponent<SpriteRenderer>().color = DefaultColor;
         enemyScript.Health -= 1;
-        Debug.Log(enemyScript.Health);
     }
     
     void Death()
     {
-        Debug.Log("DEATHHH");
         Transform enemyPosition = GameObject.Find("Enemy").transform;
-        Debug.Log(enemyPosition.position);
         Destroy(GameObject.Find("Enemy"));
         key3.transform.position = enemyPosition.position;
         key3.tag = "key3";
@@ -90,17 +87,11 @@ public class enemyBodyHit : MonoBehaviour
         portalCover.SetActive(true);
     }
 
-
     void AngryMode()
     {
-
-        Debug.Log("ANGRYMODE");
-
         mainBody.GetComponent<SpriteRenderer>().color = Color.magenta;
         DefaultColor = Color.magenta;
-
         enemyScript.moveSpeed *= 2;
         enemyScript.jumpSpeed = 10;
-
     }
 }

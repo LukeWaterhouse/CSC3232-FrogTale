@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class projectileScript : MonoBehaviour
 {
-    // Start is called before the first frame update
     private Rigidbody2D body;
 
     private void Awake()
@@ -17,6 +16,7 @@ public class projectileScript : MonoBehaviour
 
         if (collision.collider.tag == "enemyMask")
         {
+            //If hit mask bounce bullet off
             Debug.Log("MASK");
             gameObject.tag = "Untagged";
             body.gravityScale = 3;
@@ -24,6 +24,7 @@ public class projectileScript : MonoBehaviour
         }
         else
         {
+            //Destroy bullet on impact unless mask ^^
             Debug.Log("NOT MASK");
             Destroy(gameObject);
         }
