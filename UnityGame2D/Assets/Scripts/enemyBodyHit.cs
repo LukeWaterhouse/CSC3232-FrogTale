@@ -21,6 +21,8 @@ public class enemyBodyHit : MonoBehaviour
     Random rand = new Random();
     int randomNumber;
 
+    public hintHandler hintHandler;
+
     void Awake()
     {
         mainBody = GameObject.Find("enemyAnimator");
@@ -31,6 +33,9 @@ public class enemyBodyHit : MonoBehaviour
 
         portalCover = GameObject.Find("PortalCover");
         portalCover.SetActive(false);
+
+        //Find Hinthandler
+        hintHandler = FindObjectOfType<hintHandler>();
 
 
     }
@@ -56,6 +61,7 @@ public class enemyBodyHit : MonoBehaviour
                     {
                         AngryMode();
                         AngryActivated = true;
+                        hintHandler.bossIsAngry = true;
                     }                   
                 }
             }

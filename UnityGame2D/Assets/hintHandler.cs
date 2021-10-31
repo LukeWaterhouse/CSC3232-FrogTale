@@ -12,6 +12,8 @@ public class hintHandler : MonoBehaviour
     public GameObject hasntShotYet; //done
     public GameObject noWeaponYet; //done
     public GameObject bossWithWeapon;  //done
+    public GameObject thisIsHeavy; //done
+    public GameObject bossIsAngryHint; //done
 
     //Area Complete message shown yet?
     public bool hasShownAreaComplete1Hint = false;
@@ -44,6 +46,11 @@ public class hintHandler : MonoBehaviour
     public bool HasIcePowerup = false;
     public bool HasShownIceHintYet = false;
 
+    //Angry Boss bools
+    public bool bossIsAngry = false;
+    public bool hasShownAngryHint = false;
+
+
 
 
     // Start is called before the first frame update
@@ -56,6 +63,8 @@ public class hintHandler : MonoBehaviour
         hasntShotYet = GameObject.Find("ShotLeafYet"); // done
         noWeaponYet = GameObject.Find("noWeapon"); // done
         bossWithWeapon = GameObject.Find("bossWithWeapon"); //done
+        thisIsHeavy = GameObject.Find("ThisIsHeavy"); //done
+        bossIsAngryHint = GameObject.Find("AngryBossMessage"); //done
     }
 
     void Update()
@@ -106,7 +115,17 @@ public class hintHandler : MonoBehaviour
         //Hit StoneWallWithoutIcePowerup
         if (HitStoneWall && !HasIcePowerup && !HasShownIceHintYet)
         {
+            StartCoroutine(ShowBlockTooHeavyHint(thisIsHeavy));
+            HasShownIceHintYet = true;
 
+        }
+
+        //Boss becomes Angry
+        if (bossIsAngry && !hasShownAngryHint)
+        {
+            Debug.Log("ANGRY HINT");
+            StartCoroutine(ShowAngryBossHint(bossIsAngryHint));
+            hasShownAngryHint = true;
         }
 
         
@@ -114,14 +133,23 @@ public class hintHandler : MonoBehaviour
 
     }
 
-    //Hit stone wall without ice powerup
+    //Boss is angry method:
 
-    public IEnumerator ShowBossWithWeaponHint(GameObject hint)
+    public IEnumerator ShowAngryBossHint(GameObject hint)
     {
         ResetHints();
-        yield return new WaitForSeconds(2);
         hint.GetComponent<SpriteRenderer>().enabled = true;
-        yield return new WaitForSeconds(6);
+        yield return new WaitForSeconds(5);
+        hint.GetComponent<SpriteRenderer>().enabled = false;
+    }
+
+    //Hit stone wall without ice powerup
+
+    public IEnumerator ShowBlockTooHeavyHint(GameObject hint)
+    {
+        ResetHints();
+        hint.GetComponent<SpriteRenderer>().enabled = true;
+        yield return new WaitForSeconds(10);
         hint.GetComponent<SpriteRenderer>().enabled = false;
     }
 
@@ -187,7 +215,7 @@ public class hintHandler : MonoBehaviour
     public IEnumerator ShowAreaComplete2Hint(GameObject hint)
     {
         ResetHints();
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(15);
         if (!Checkpoint2Reached)
         {
             hint.GetComponent<SpriteRenderer>().enabled = true;
@@ -223,7 +251,9 @@ public class hintHandler : MonoBehaviour
         hasntShotYet.GetComponent<SpriteRenderer>().enabled = false;
         noWeaponYet.GetComponent<SpriteRenderer>().enabled = false;
         bossWithWeapon.GetComponent<SpriteRenderer>().enabled = false;
-    }
+        thisIsHeavy.GetComponent<SpriteRenderer>().enabled = false;
+        bossIsAngryHint.GetComponent<SpriteRenderer>().enabled = false;
+}
 
     // Update is called once per frame
     
