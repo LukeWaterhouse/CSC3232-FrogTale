@@ -23,6 +23,7 @@ TagManager:
   - LeafSlinger
   - purplePortal
   - IcePowerup
+  - StoneWallCollider
   layers:
   - Default
   - TransparentFX

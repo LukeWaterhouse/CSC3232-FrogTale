@@ -29,15 +29,22 @@ public class hintHandler : MonoBehaviour
     public bool Checkpoint2Reached = false;
     public bool Checkpoint3Reached = false;
 
-    //Leafslinger picked up?
+    //Leafslinger picked up/has the player shot yet?
     public bool LeafSlingerAcquired = false;
     public bool HasShotYet = false;
     public bool ShownShootLeafSlingerHintYet = false;
 
-    //EnteredPurplePortal
+    //EnteredPurplePortal with or without weapon?
     public bool EnteredPurplePortal = false;
     public bool HasShownnoWeaponHintYet = false;
     public bool HasShownBossWithWeaponHintYet = false;
+
+    //Ice Hint bools
+    public bool HitStoneWall = false;
+    public bool HasIcePowerup = false;
+    public bool HasShownIceHintYet = false;
+
+
 
     // Start is called before the first frame update
     void Awake()
@@ -96,70 +103,97 @@ public class hintHandler : MonoBehaviour
             HasShownBossWithWeaponHintYet = true;
         }
 
+        //Hit StoneWallWithoutIcePowerup
+        if (HitStoneWall && !HasIcePowerup && !HasShownIceHintYet)
+        {
+
+        }
+
+        
+
 
     }
+
+    //Hit stone wall without ice powerup
 
     public IEnumerator ShowBossWithWeaponHint(GameObject hint)
     {
         ResetHints();
-        //Show hint passed to function for 10 seconds
-        Debug.Log("Boss With Weapon");
-
         yield return new WaitForSeconds(2);
-
-
         hint.GetComponent<SpriteRenderer>().enabled = true;
         yield return new WaitForSeconds(6);
         hint.GetComponent<SpriteRenderer>().enabled = false;
-
     }
+
+
+    //Entering Boss area with weapon Method:
+
+    public IEnumerator ShowBossWithWeaponHint(GameObject hint)
+    {
+        ResetHints();      
+        yield return new WaitForSeconds(2);
+        hint.GetComponent<SpriteRenderer>().enabled = true;
+        yield return new WaitForSeconds(6);
+        hint.GetComponent<SpriteRenderer>().enabled = false;
+    }
+
+
+    //Entering Boss area without a weapon Method:
 
     public IEnumerator ShowNoWeaponYetHint(GameObject hint)
     {
-        ResetHints();
-        //Show hint passed to function for 10 seconds
-        Debug.Log("show no weapon yet");
-
-        yield return new WaitForSeconds(2);
-
-        
+        ResetHints();    
+        yield return new WaitForSeconds(2);       
         hint.GetComponent<SpriteRenderer>().enabled = true;
         yield return new WaitForSeconds(12);
-        hint.GetComponent<SpriteRenderer>().enabled = false;
-        
+        hint.GetComponent<SpriteRenderer>().enabled = false;      
     }
 
+
+
+    //Has LeafSlinger but isn't shooting it for a while Method:
+
+    public IEnumerator ShowShootLeafSlingerHint(GameObject hint)
+    {        
+        ResetHints();       
+        yield return new WaitForSeconds(4);
+        if (!HasShotYet)
+        {
+            hint.GetComponent<SpriteRenderer>().enabled = true;
+            yield return new WaitForSeconds(10);
+            hint.GetComponent<SpriteRenderer>().enabled = false;
+            //Break out of loop
+            ShownShootLeafSlingerHintYet = false;
+        }
+    }
+
+
+    //Area Complete Hint Methods: 
 
     public IEnumerator ShowAreaComplete1Hint(GameObject hint)
     {
         ResetHints();
-        //Show hint passed to function for 10 seconds
-        Debug.Log("Show hint function");
-        
-        yield return new WaitForSeconds(10);
-
+        yield return new WaitForSeconds(15);
         if (!Checkpoint1Reached)
         {
             hint.GetComponent<SpriteRenderer>().enabled = true;
             yield return new WaitForSeconds(6);
             hint.GetComponent<SpriteRenderer>().enabled = false;
+            //Break out of loop
             hasShownAreaComplete1Hint = false;
-        } 
+        }
     }
 
     public IEnumerator ShowAreaComplete2Hint(GameObject hint)
     {
         ResetHints();
-        //Show hint passed to function for 10 seconds
-        Debug.Log("Show hint function");
-
         yield return new WaitForSeconds(10);
-
         if (!Checkpoint2Reached)
         {
             hint.GetComponent<SpriteRenderer>().enabled = true;
             yield return new WaitForSeconds(6);
             hint.GetComponent<SpriteRenderer>().enabled = false;
+            //Break out of loop
             hasShownAreaComplete2Hint = false;
         }
     }
@@ -167,47 +201,24 @@ public class hintHandler : MonoBehaviour
     public IEnumerator ShowAreaComplete3Hint(GameObject hint)
     {
         ResetHints();
-        //Show hint passed to function for 10 seconds
-        Debug.Log("Show hint function");
-
         yield return new WaitForSeconds(10);
-
         if (!Checkpoint3Reached)
         {
             hint.GetComponent<SpriteRenderer>().enabled = true;
             yield return new WaitForSeconds(6);
             hint.GetComponent<SpriteRenderer>().enabled = false;
+            //Break out of loop
             hasShownAreaComplete3Hint = false;
         }
     }
 
-    public IEnumerator ShowShootLeafSlingerHint(GameObject hint)
-    {
-        Debug.Log("in show leaf function");
-        ResetHints();
-        //Show hint passed to function for 10 seconds
-        Debug.Log("Show hint function");
+    
 
 
-        yield return new WaitForSeconds(8);
-
-        Debug.Log(HasShotYet);
-        if (!HasShotYet)
-        {
-            Debug.Log("Showing Leaf Hint");
-            hint.GetComponent<SpriteRenderer>().enabled = true;
-            yield return new WaitForSeconds(12);
-            hint.GetComponent<SpriteRenderer>().enabled = false;
-            ShownShootLeafSlingerHintYet = false;
-        }
-    }
-
-
-
+    //Reset hint visibility Method 
 
     public void ResetHints()
     {
-        //Reset hint visibilities
         areaComplete.GetComponent<SpriteRenderer>().enabled = false;
         hasntShotYet.GetComponent<SpriteRenderer>().enabled = false;
         noWeaponYet.GetComponent<SpriteRenderer>().enabled = false;

@@ -37,6 +37,8 @@ public class DruidControl : MonoBehaviour
 
 
     [SerializeField] public PhysicsMaterial2D iceBlockMaterial;
+    [SerializeField] public PhysicsMaterial2D highFrictionMaterial;
+
     GameObject iceBlock;
 
     
@@ -57,7 +59,7 @@ public class DruidControl : MonoBehaviour
         hintHandler = FindObjectOfType<hintHandler>();
 
         iceBlock = GameObject.Find("iceBlock");
-        iceBlockMaterial.friction = 9999;
+        iceBlock.GetComponent<BoxCollider2D>().sharedMaterial = highFrictionMaterial;
 
 
 
@@ -143,10 +145,16 @@ public class DruidControl : MonoBehaviour
         {
             Debug.Log("ICEEEE");
             Destroy(collision.gameObject);
-            iceBlockMaterial.friction = 0;
+            iceBlock.GetComponent<BoxCollider2D>().sharedMaterial = iceBlockMaterial;
             iceBlock.GetComponent<SpriteRenderer>().color = Color.white;
+            hintHandler.HasIcePowerup = true;
 
 
+        }
+
+        if (collision.collider.tag == "StoneWallCollider")
+        {
+            hintHandler.HitStoneWall = true;
         }
 
 
