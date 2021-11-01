@@ -45,7 +45,7 @@ public class DruidControl : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
 
-        //initially disable the shooting scripts
+        //Initially disable the shooting scripts
         shootingObject = GameObject.Find("Aim");
         shootingObject.GetComponent<Shooting>().enabled = false;
         shootingObject.GetComponent<AimScript>().enabled = false;
