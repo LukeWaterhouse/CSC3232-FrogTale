@@ -8,15 +8,31 @@ public class LoadLevelManager : MonoBehaviour
 {
 
 
-    // Start is called before the first frame update
-    void Start()
+    GameObject level2Barrier;
+
+    //Static level bools
+    GameObject staticLevelBools;
+
+
+    void Awake()
     {
-        
+        level2Barrier = GameObject.Find("Level2Barrier");
+
+        //find level bools
+        staticLevelBools = GameObject.Find("StaticLevelBools");
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        Debug.Log(StaticLevelBools.isLevel2Unlocked);
+
+
+        if (StaticLevelBools.isLevel2Unlocked)
+        {
+            Destroy(level2Barrier);
+        }
         
     }
 

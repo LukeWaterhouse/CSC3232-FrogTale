@@ -35,6 +35,9 @@ public class DruidControl : MonoBehaviour
     //Respawn Location(Used for checkpoints)
     public Vector2 coord1;
 
+    //Instantiate Level Finished message
+    GameObject level1Finished;
+    
 
     //Referencing physics materials
     [SerializeField] public PhysicsMaterial2D iceBlockMaterial;
@@ -43,7 +46,7 @@ public class DruidControl : MonoBehaviour
     GameObject iceBlock;
 
     private void Awake()
-    {   
+    {
         body = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
 
@@ -54,13 +57,19 @@ public class DruidControl : MonoBehaviour
 
         //respawn point
         coord1 = new Vector2(-8, 1);
-     
+
         //Find Hinthandler
         hintHandler = FindObjectOfType<hintHandler>();
 
         //Get iceblock and set material to high friction
         iceBlock = GameObject.Find("iceBlock");
         iceBlock.GetComponent<BoxCollider2D>().sharedMaterial = highFrictionMaterial;
+
+        //find level finished method;
+        level1Finished = GameObject.Find("FinishedLevel1");
+
+
+
     }
 
     private void Update()
@@ -106,6 +115,8 @@ public class DruidControl : MonoBehaviour
 
         if (collision.GetComponent<Collider2D>().tag == "EndLevel1")
         {
+            StaticLevelBools.isLevel2Unlocked = true;
+            level1Finished.GetComponent<SpriteRenderer>().enabled = true;
             Debug.Log("Ending Level 1");
             StartCoroutine(EndLevel1());
         }
