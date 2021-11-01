@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class DruidControl : MonoBehaviour
 
@@ -101,6 +103,14 @@ public class DruidControl : MonoBehaviour
         {
             hintHandler.EnteredPurplePortal = true;
         }
+
+        if (collision.GetComponent<Collider2D>().tag == "EndLevel1")
+        {
+            Debug.Log("Ending Level 1");
+            StartCoroutine(EndLevel1());
+        }
+
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -184,5 +194,17 @@ public class DruidControl : MonoBehaviour
             anim.SetTrigger("jump");
         }
 
-    
+        private IEnumerator EndLevel1()
+        {
+            yield return new WaitForSeconds(7);
+            loadlevel("MainMenu");
+        }
+
+    public void loadlevel(string level)
+    {
+        SceneManager.LoadScene(level);
+
+    }
+
+
 }

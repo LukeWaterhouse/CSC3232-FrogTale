@@ -24,6 +24,8 @@ TagManager:
   - purplePortal
   - IcePowerup
   - StoneWallCollider
+  - Level1
+  - EndLevel1
   layers:
   - Default
   - TransparentFX

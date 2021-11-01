@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class DruidControlMenu : MonoBehaviour
 
@@ -66,7 +68,20 @@ public class DruidControlMenu : MonoBehaviour
         if (collision.gameObject.tag == "Ground")
         {
             grounded = true;
-        }                        
-    }        
-    
+        }
+
+        if (collision.gameObject.tag == "Level1")
+        {
+            Debug.Log("Load Level 1");
+            loadlevel("Level1");
+        }
+    }
+
+
+    public void loadlevel(string level)
+    {
+        SceneManager.LoadScene(level);
+
+    }
+
 }
