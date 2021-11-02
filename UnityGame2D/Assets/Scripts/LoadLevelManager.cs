@@ -22,13 +22,13 @@ public class LoadLevelManager : MonoBehaviour
         staticLevelBools = GameObject.Find("StaticLevelBools");
     }
 
-    // Update is called once per frame
     void Update()
     {
 
         Debug.Log(StaticLevelBools.isLevel2Unlocked);
 
 
+        //destory level 2 barrier if static bool true
         if (StaticLevelBools.isLevel2Unlocked)
         {
             Destroy(level2Barrier);

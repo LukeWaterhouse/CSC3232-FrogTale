@@ -194,7 +194,7 @@ public class hintHandler : MonoBehaviour
     public IEnumerator ShowAreaComplete1Hint(GameObject hint)
     {
         ResetHints();
-        yield return new WaitForSeconds(15);
+        yield return new WaitForSeconds(6);
         if (!Checkpoint1Reached)
         {
             hint.GetComponent<SpriteRenderer>().enabled = true;
@@ -208,7 +208,7 @@ public class hintHandler : MonoBehaviour
     public IEnumerator ShowAreaComplete2Hint(GameObject hint)
     {
         ResetHints();
-        yield return new WaitForSeconds(15);
+        yield return new WaitForSeconds(7);
         if (!Checkpoint2Reached)
         {
             hint.GetComponent<SpriteRenderer>().enabled = true;
@@ -222,7 +222,7 @@ public class hintHandler : MonoBehaviour
     public IEnumerator ShowAreaComplete3Hint(GameObject hint)
     {
         ResetHints();
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(5);
         if (!Checkpoint3Reached)
         {
             hint.GetComponent<SpriteRenderer>().enabled = true;

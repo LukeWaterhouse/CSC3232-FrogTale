@@ -26,6 +26,7 @@ TagManager:
   - StoneWallCollider
   - Level1
   - EndLevel1
+  - Level2
   layers:
   - Default
   - TransparentFX
