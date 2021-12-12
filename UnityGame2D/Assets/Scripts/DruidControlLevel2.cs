@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 public class DruidControlLevel2 : MonoBehaviour
@@ -11,6 +12,16 @@ public class DruidControlLevel2 : MonoBehaviour
     //Frog player stats
     [SerializeField] private float moveSpeed = 8;
     [SerializeField] private float jumpPower = 3;
+
+
+    GameObject levelBarrier;
+
+     GameObject levelFinished;
+    Text keyText;
+
+    public int keyCount = 0;
+
+
 
     //Referencing Frogs object components
     private Rigidbody2D body;
@@ -36,12 +47,16 @@ public class DruidControlLevel2 : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-
+        keyText = GameObject.Find("KeyText").GetComponent<Text>();
+        levelBarrier = GameObject.Find("Level2EndBarrier");
+        levelFinished = GameObject.Find("FinishedLevel");
         //respawn point
         coord1 = new Vector2(-8, 1);
 
         //Find Hinthandler
-        //hintHandler = FindObjectOfType<hintHandler>();     
+        //hintHandler = FindObjectOfType<hintHandler>();  
+
+        InvokeRepeating("reScan", 3.0f, 3.0f);  
     }
 
     private void Update()
@@ -97,7 +112,33 @@ public class DruidControlLevel2 : MonoBehaviour
 
             StartCoroutine(Respawn(collision.gameObject));
         }
+
+        if(collision.gameObject.tag == "key"){
+            Debug.Log("collided!");
+            keyCount += 1;
+            keyText.text = $"Keys: {keyCount}/8";
+            if(keyCount == 8){
+                Destroy(levelBarrier);
+                keyText.text = "Barrier Destroyed!";
+            }
+            Debug.Log(keyCount);
+            Destroy(collision.gameObject);
+        }
+
+
+        
       
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D collision){
+        if (collision.GetComponent<Collider2D>().tag == "EndLevel2")
+        {
+            StaticLevelBools.isLevel2Unlocked = true;
+            levelFinished.GetComponent<SpriteRenderer>().enabled = true;
+            Debug.Log("Ending Level 2");
+            StartCoroutine(EndLevel2());
+        }
     }
 
         private IEnumerator StatReset(GameObject collision)
@@ -118,5 +159,23 @@ public class DruidControlLevel2 : MonoBehaviour
             Debug.Log(coord1);
             gameObject.transform.position = coord1;
             anim.SetTrigger("jump");
-        }     
+        }    
+
+         void reScan(){
+        AstarPath.active.Scan();
+        Debug.Log("scanning");
+    }
+
+
+        private IEnumerator EndLevel2()
+        {
+            yield return new WaitForSeconds(7);
+            loadlevel("MainMenu");
+        }
+
+         public void loadlevel(string level)
+    {
+        SceneManager.LoadScene(level);
+
+    } 
 }

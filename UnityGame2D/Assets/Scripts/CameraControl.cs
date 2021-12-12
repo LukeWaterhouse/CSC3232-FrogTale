@@ -9,6 +9,8 @@ public class CameraControl : MonoBehaviour
     public Vector3 offset;
     [Range(1, 10)] public float smoothFactor;
 
+
+   
     private void FixedUpdate()
     {
         Follow();
@@ -20,6 +22,8 @@ public class CameraControl : MonoBehaviour
         Vector3 smoothPosition = Vector3.Lerp(transform.position, targetPosition, smoothFactor * Time.fixedDeltaTime);
         transform.position = smoothPosition;
     }
+
+   
     
     
 }
