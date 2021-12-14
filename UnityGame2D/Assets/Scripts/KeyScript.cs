@@ -5,7 +5,7 @@ using UnityEngine;
 public class KeyScript : MonoBehaviour
 {
 
-    public DruidControl druidControl;
+    public DruidControlLevel1 druidControl;
 
     //Getting Hinthandler
     public hintHandler hintHandler;
@@ -20,7 +20,7 @@ public class KeyScript : MonoBehaviour
     void Awake()
     {
         //Finding things
-        druidControl = FindObjectOfType<DruidControl>();
+        druidControl = FindObjectOfType<DruidControlLevel1>();
         barrier1Body = GameObject.Find("Barrier1");
         barrier2Body = GameObject.Find("Barrier2");
         barrier3Body = GameObject.Find("Barrier3");

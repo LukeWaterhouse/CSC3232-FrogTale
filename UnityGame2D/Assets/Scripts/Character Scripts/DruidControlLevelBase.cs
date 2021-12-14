@@ -3,18 +3,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 
-public class DruidControlLevel2 : DruidControlLevelBase
+public class DruidControlLevelBase : DruidControlBase
 
-{
-    GameObject levelBarrier;
-    Text keyText;
-    public int keyCount = 0;
+{  
+    //Instantiate Hinthandler
+    public hintHandler hintHandler;
 
 
-     public override void Awake()
+    //Respawn Location(Used for checkpoints)
+    public Vector2 coord1;
+
+    //Instantiate Level Finished message
+    public GameObject levelFinished;
+
+     //grav powerup strength
+    [SerializeField] public float gravPower = 0.1f;
+
+    public override void Awake()
     {
 
         //base class stuff
@@ -31,13 +38,6 @@ public class DruidControlLevel2 : DruidControlLevelBase
         //find level finished method;
         levelFinished = GameObject.Find("FinishedLevel");
 
-        //Level2 additions
-        levelBarrier = GameObject.Find("Level2EndBarrier");
-        keyText = GameObject.Find("KeyText").GetComponent<Text>();
-        InvokeRepeating("reScan", 3.0f, 3.0f);  
-
-
-
     }
 
     public override void OnCollisionEnter2D(Collision2D collision)
@@ -51,10 +51,11 @@ public class DruidControlLevel2 : DruidControlLevelBase
         {
             audioManager.Play("FrogJump");
         }
-     
+
         //If player hits kill object run death sequence and start respawn coroutine
         if ((collision.collider.tag == "killObject") || (collision.collider.tag == "EnemyBody") || (collision.collider.tag == "enemyMask"))
-        {           
+        {   
+            audioManager.Play("FrogDeath1");        
             anim.SetTrigger("death");
             body.velocity = new Vector2(body.velocity.x, 8);
             body.gravityScale = 5f;
@@ -65,7 +66,6 @@ public class DruidControlLevel2 : DruidControlLevelBase
             StartCoroutine(Respawn(collision.gameObject));
         }
 
-
         //If collide with melon change gravity and tint green
         if (collision.gameObject.tag == "GravPowerup")
         {
@@ -75,36 +75,33 @@ public class DruidControlLevel2 : DruidControlLevelBase
             GetComponent<SpriteRenderer>().color = Color.green;
             StartCoroutine(StatReset(collision.gameObject));
         }
-
-
-         if(collision.gameObject.tag == "key"){
-            Debug.Log("collided!");
-            audioManager.Play("KeyCollection");
-            keyCount += 1;
-            keyText.text = $"Keys: {keyCount}/8";
-            if(keyCount == 8){
-                Destroy(levelBarrier);
-                keyText.text = "Barrier Destroyed!";
-            }
-            Debug.Log(keyCount);
-            Destroy(collision.gameObject);
-        }    
-      
     }
 
-
-    private void OnTriggerEnter2D(Collider2D collision){
-        if (collision.GetComponent<Collider2D>().tag == "EndLevel2")
+        public IEnumerator StatReset(GameObject collision)
         {
-            StaticLevelBools.isLevel2Unlocked = true;
-            levelFinished.GetComponent<SpriteRenderer>().enabled = true;
-            Debug.Log("Ending Level 2");
-            StartCoroutine(EndLevel());
+            yield return new WaitForSeconds(3);
+            body.gravityScale = 1.8f;
+            GetComponent<SpriteRenderer>().color = Color.white;
+            collision.SetActive(true);
         }
-    }
 
-         void reScan(){
-        AstarPath.active.Scan();
-        Debug.Log("scanning");
-    }
+        public IEnumerator Respawn(GameObject collision)
+        {
+            yield return new WaitForSeconds(2);
+            body.velocity = new Vector2(0, 0);
+            GetComponent<CapsuleCollider2D>().enabled = true;
+            body.gravityScale = 1.8f;
+            Camera.main.GetComponent<CameraControl>().enabled = true;
+            Debug.Log(coord1);
+            gameObject.transform.position = coord1;
+            anim.SetTrigger("jump");
+        }
+
+        public IEnumerator EndLevel()
+        {
+            yield return new WaitForSeconds(7);
+            loadlevel("MainMenu");
+        }
+
+
 }

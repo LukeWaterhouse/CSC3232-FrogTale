@@ -9,7 +9,7 @@ public class checkpointScript : MonoBehaviour
     private Animator anim;
 
     
-    public DruidControl druidControl;
+    public DruidControlLevel1 druidControl;
 
     //Checkpoint captured bools
     public bool isCaptured1 = false;
@@ -25,7 +25,7 @@ public class checkpointScript : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        druidControl = FindObjectOfType<DruidControl>();
+        druidControl = FindObjectOfType<DruidControlLevel1>();
         anim = GetComponent<Animator>();
         hintHandler = FindObjectOfType<hintHandler>();
 

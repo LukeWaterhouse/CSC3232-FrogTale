@@ -5,7 +5,7 @@ using UnityEngine;
 public class hintHandler : MonoBehaviour
 {
 
-    public DruidControl druidControl;
+    public DruidControlLevel1 druidControl;
 
     //Hint game objects
     public GameObject areaComplete; //done
@@ -54,7 +54,7 @@ public class hintHandler : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        druidControl = FindObjectOfType<DruidControl>();
+        druidControl = FindObjectOfType<DruidControlLevel1>();
 
         //Find hint objects
         areaComplete = GameObject.Find("AreaComplete"); //done
