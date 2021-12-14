@@ -21,10 +21,17 @@ public class DruidControlMenu : MonoBehaviour
     private bool grounded;
     private bool falling;   
 
+
+
+    AudioManager audioManager;
     private void Awake()
     {   
         body = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();       
+        anim = GetComponent<Animator>();    
+
+        audioManager = FindObjectOfType<AudioManager>();
+
+        
     }
 
     private void Update()
@@ -46,7 +53,9 @@ public class DruidControlMenu : MonoBehaviour
         //Jumping
         if ((Input.GetKey(KeyCode.Space))  && grounded)
         {
+            audioManager.Play("FrogJump");
             Jump();
+            
         }
 
         //Setting animation based on state

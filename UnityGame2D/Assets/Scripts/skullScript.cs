@@ -13,6 +13,8 @@ public class skullScript : MonoBehaviour
     GameObject parentObject;
     GameObject playerObject;
 
+    AudioManager audioManager;
+
     // Start is called before the first frame update
 
     GameObject mainBody;
@@ -22,6 +24,7 @@ public class skullScript : MonoBehaviour
         playerObject = GameObject.Find("Frog");
         mainBody = this.gameObject.transform.GetChild(0).gameObject;
         gameObject.GetComponent<AIDestinationSetter>().target = playerObject.transform;
+        audioManager = FindObjectOfType<AudioManager>();
 
         
     }
@@ -40,6 +43,8 @@ public class skullScript : MonoBehaviour
 
 
             if(skullHealth <= 0){
+
+                audioManager.Play("SkullDeath");
                 Destroy(gameObject);
             }
             StartCoroutine(DamageSequence());

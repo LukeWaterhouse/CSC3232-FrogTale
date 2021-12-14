@@ -14,9 +14,8 @@ public class DruidControlLevel3 : MonoBehaviour
     [SerializeField] private float jumpPower = 3;
 
 
-    GameObject levelBarrier;
 
-     GameObject levelFinished;
+    GameObject levelFinished;
     Text keyText;
 
     public int keyCount = 0;
@@ -25,7 +24,7 @@ public class DruidControlLevel3 : MonoBehaviour
 
     //Referencing Frogs object components
     private Rigidbody2D body;
-    private Animator anim;   
+    private Animator anim;
     private CapsuleCollider2D collisionbody;
 
     //Instantiate Hinthandler
@@ -33,14 +32,22 @@ public class DruidControlLevel3 : MonoBehaviour
 
     //grounded or falling bools
     private bool grounded;
-    private bool falling;        
+    private bool falling;
+
+    public int tadpoleCount = 0;
+    Text tadpoleText;
+    GameObject levelBarrier;
 
     //Respawn Location(Used for checkpoints)
-    public Vector2 coord1;   
+    public Vector2 coord1;
 
     //Referencing physics materials
     [SerializeField] public PhysicsMaterial2D iceBlockMaterial;
     [SerializeField] public PhysicsMaterial2D highFrictionMaterial;
+
+
+    AudioManager audioManager;
+
 
 
     private void Awake()
@@ -50,10 +57,15 @@ public class DruidControlLevel3 : MonoBehaviour
         //respawn point
         coord1 = new Vector2(-8, 1);
 
+        tadpoleText = GameObject.Find("tadpoleText").GetComponent<Text>();
+        levelBarrier = GameObject.Find("Level3EndBarrier");
+
         //Find Hinthandler
         //hintHandler = FindObjectOfType<hintHandler>();  
 
-        InvokeRepeating("reScan", 3.0f, 3.0f);  
+        audioManager = FindObjectOfType<AudioManager>();
+
+        InvokeRepeating("reScan", 3.0f, 3.0f);
     }
 
     private void Update()
@@ -65,30 +77,30 @@ public class DruidControlLevel3 : MonoBehaviour
         //Flip character on direction change
         if (horizontalInput > 0.01f)
         {
-            transform.localScale = new Vector2(5,5);
+            transform.localScale = new Vector2(5, 5);
         }
         else if (horizontalInput < -0.01f)
         {
-            transform.localScale = new Vector2(-5,5);
+            transform.localScale = new Vector2(-5, 5);
         }
-        
+
         //Jumping
-        if ((Input.GetKey(KeyCode.Space))  && grounded)
+        if ((Input.GetKey(KeyCode.Space)) && grounded)
         {
             Jump();
         }
 
         //Setting animation based on state
-        anim.SetBool("run", horizontalInput !=0);
+        anim.SetBool("run", horizontalInput != 0);
         anim.SetBool("grounded", grounded);
     }
 
     private void Jump()
-    {       
-        body.velocity = new Vector2( body.velocity.x, jumpPower);
+    {
+        body.velocity = new Vector2(body.velocity.x, jumpPower);
         anim.SetTrigger("jump");
         grounded = false;
-    } 
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -96,10 +108,10 @@ public class DruidControlLevel3 : MonoBehaviour
         {
             grounded = true;
         }
-     
+
         //If player hits kill object run death sequence and start respawn coroutine
         if ((collision.collider.tag == "killObject") || (collision.collider.tag == "EnemyBody") || (collision.collider.tag == "enemyMask"))
-        {           
+        {
             anim.SetTrigger("death");
             body.velocity = new Vector2(body.velocity.x, 8);
             body.gravityScale = 5f;
@@ -110,47 +122,74 @@ public class DruidControlLevel3 : MonoBehaviour
             StartCoroutine(Respawn(collision.gameObject));
         }
 
+        if (collision.collider.tag == "Tadpole")
+        {
 
-        
-      
+
+            if (tadpoleCount < 200)
+            {
+
+                audioManager.Play("Pop");
+                tadpoleCount += 1;
+                Debug.Log(tadpoleCount);
+                tadpoleText.text = $"Tadpole Count: {tadpoleCount}/200";
+                collision.gameObject.SetActive(false);
+
+            }
+
+            if(tadpoleCount>=200){
+
+                tadpoleText.text = "Thats enough! Let's go home";
+                Destroy(levelBarrier);
+                
+            }
+
+
+
+        }
+
+
+
+
     }
 
 
-    private void OnTriggerEnter2D(Collider2D collision){
-       
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
     }
 
-        private IEnumerator StatReset(GameObject collision)
-        {
-            yield return new WaitForSeconds(3);
-            body.gravityScale = 1.8f;
-            GetComponent<SpriteRenderer>().color = Color.white;
-            collision.SetActive(true);
-        }
+    private IEnumerator StatReset(GameObject collision)
+    {
+        yield return new WaitForSeconds(3);
+        body.gravityScale = 1.8f;
+        GetComponent<SpriteRenderer>().color = Color.white;
+        collision.SetActive(true);
+    }
 
-        private IEnumerator Respawn(GameObject collision)
-        {
-            yield return new WaitForSeconds(2);
-            body.velocity = new Vector2(0, 0);
-            GetComponent<CapsuleCollider2D>().enabled = true;
-            body.gravityScale = 1.8f;
-            Camera.main.GetComponent<CameraControl>().enabled = true;
-            Debug.Log(coord1);
-            gameObject.transform.position = coord1;
-            anim.SetTrigger("jump");
-        }    
+    private IEnumerator Respawn(GameObject collision)
+    {
+        yield return new WaitForSeconds(2);
+        body.velocity = new Vector2(0, 0);
+        GetComponent<CapsuleCollider2D>().enabled = true;
+        body.gravityScale = 1.8f;
+        Camera.main.GetComponent<CameraControl>().enabled = true;
+        Debug.Log(coord1);
+        gameObject.transform.position = coord1;
+        anim.SetTrigger("jump");
+    }
 
 
 
-        private IEnumerator EndLevel2()
-        {
-            yield return new WaitForSeconds(7);
-            loadlevel("MainMenu");
-        }
+    private IEnumerator EndLevel2()
+    {
+        yield return new WaitForSeconds(7);
+        loadlevel("MainMenu");
+    }
 
-         public void loadlevel(string level)
+    public void loadlevel(string level)
     {
         SceneManager.LoadScene(level);
 
-    } 
+    }
 }

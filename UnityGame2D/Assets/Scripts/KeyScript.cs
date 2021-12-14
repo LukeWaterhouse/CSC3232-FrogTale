@@ -15,6 +15,8 @@ public class KeyScript : MonoBehaviour
     GameObject barrier2Body;
     GameObject barrier3Body;
 
+
+    AudioManager audioManager;
     void Awake()
     {
         //Finding things
@@ -23,6 +25,7 @@ public class KeyScript : MonoBehaviour
         barrier2Body = GameObject.Find("Barrier2");
         barrier3Body = GameObject.Find("Barrier3");
         hintHandler = FindObjectOfType<hintHandler>();
+        audioManager = FindObjectOfType<AudioManager>();
 
     }
 
@@ -30,6 +33,7 @@ public class KeyScript : MonoBehaviour
     {
         if (gameObject.tag == "key1" && collision.collider.tag == "Player")
         {
+            audioManager.Play("KeyCollection");
             Destroy(gameObject);
             Destroy(barrier1Body);
             hintHandler.Key1Captured = true;
@@ -37,6 +41,7 @@ public class KeyScript : MonoBehaviour
 
         if (gameObject.tag == "key2" && collision.collider.tag == "Player")
         {
+            audioManager.Play("KeyCollection");
             Destroy(gameObject);
             Destroy(barrier2Body);
             hintHandler.Key2Captured = true;
@@ -44,6 +49,7 @@ public class KeyScript : MonoBehaviour
 
         if (gameObject.tag == "key3" && collision.collider.tag == "Player")
         {
+            audioManager.Play("KeyCollection");
             Destroy(gameObject);
             Destroy(barrier3Body);
             hintHandler.Key3Captured = true;

@@ -10,15 +10,18 @@ public class Shooting : MonoBehaviour
 
     public hintHandler hintHandler;
 
+    AudioManager audioManager;
     void Awake()
     {
         hintHandler = FindObjectOfType<hintHandler>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     void Update()
     {       
         if (Input.GetButtonDown("Fire1"))
         {
+            audioManager.Play("LeafShoot");
             Fire();
             hintHandler.HasShotYet = true;
         }        

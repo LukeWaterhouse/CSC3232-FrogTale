@@ -16,7 +16,7 @@ public class DruidControlLevel2 : MonoBehaviour
 
     GameObject levelBarrier;
 
-     GameObject levelFinished;
+    GameObject levelFinished;
     Text keyText;
 
     public int keyCount = 0;
@@ -42,6 +42,8 @@ public class DruidControlLevel2 : MonoBehaviour
     [SerializeField] public PhysicsMaterial2D iceBlockMaterial;
     [SerializeField] public PhysicsMaterial2D highFrictionMaterial;
 
+    AudioManager audioManager;
+
 
     private void Awake()
     {
@@ -57,6 +59,8 @@ public class DruidControlLevel2 : MonoBehaviour
         //hintHandler = FindObjectOfType<hintHandler>();  
 
         InvokeRepeating("reScan", 3.0f, 3.0f);  
+
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     private void Update()
@@ -78,6 +82,7 @@ public class DruidControlLevel2 : MonoBehaviour
         //Jumping
         if ((Input.GetKey(KeyCode.Space))  && grounded)
         {
+            audioManager.Play("FrogJump");
             Jump();
         }
 
@@ -115,6 +120,7 @@ public class DruidControlLevel2 : MonoBehaviour
 
         if(collision.gameObject.tag == "key"){
             Debug.Log("collided!");
+            audioManager.Play("KeyCollection");
             keyCount += 1;
             keyText.text = $"Keys: {keyCount}/8";
             if(keyCount == 8){

@@ -21,6 +21,7 @@ public class enemyBodyHit : MonoBehaviour
     //Hint Handler
     public hintHandler hintHandler;
 
+    AudioManager audioManager;
     void Awake()
     {
         //Finding things
@@ -31,6 +32,7 @@ public class enemyBodyHit : MonoBehaviour
         bossBounce.SetActive(false);
         portalCover = GameObject.Find("PortalCover");
         portalCover.SetActive(false);
+        audioManager = FindObjectOfType<AudioManager>();
 
         //Find Hinthandler
         hintHandler = FindObjectOfType<hintHandler>();
@@ -78,6 +80,7 @@ public class enemyBodyHit : MonoBehaviour
     
     void Death()
     {
+        audioManager.Play("EnemyDeath");
         Transform enemyPosition = GameObject.Find("Enemy").transform;
         Destroy(GameObject.Find("Enemy"));
         key3.transform.position = enemyPosition.position;
@@ -89,6 +92,7 @@ public class enemyBodyHit : MonoBehaviour
 
     void AngryMode()
     {
+        audioManager.Play("EnemyAngry");
         mainBody.GetComponent<SpriteRenderer>().color = Color.magenta;
         DefaultColor = Color.magenta;
         enemyScript.moveSpeed *= 2;

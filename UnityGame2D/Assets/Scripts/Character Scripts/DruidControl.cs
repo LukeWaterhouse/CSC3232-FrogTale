@@ -45,8 +45,14 @@ public class DruidControl : MonoBehaviour
 
     GameObject iceBlock;
 
+
+    AudioManager audioManager;
+
     private void Awake()
     {
+
+        audioManager = FindObjectOfType<AudioManager>();
+
         body = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
 
@@ -91,6 +97,7 @@ public class DruidControl : MonoBehaviour
         //Jumping
         if ((Input.GetKey(KeyCode.Space))  && grounded)
         {
+            audioManager.Play("FrogJump");
             Jump();
         }
 
@@ -131,6 +138,11 @@ public class DruidControl : MonoBehaviour
             grounded = true;
         }
 
+        if (collision.gameObject.tag == "Boing")
+        {
+            audioManager.Play("FrogJump");
+        }
+
         if (collision.collider.tag == "greenPortal")
         {
             gameObject.transform.position = new Vector2(59.5f, 32f);
@@ -138,6 +150,7 @@ public class DruidControl : MonoBehaviour
 
         if(collision.collider.tag == "LeafSlinger")
         {
+            audioManager.Play("WeaponPickup");
             leafSlingerPickedUp = true;
             //enable shooting scripts
             shootingObject.GetComponent<Shooting>().enabled = true;
@@ -150,6 +163,7 @@ public class DruidControl : MonoBehaviour
 
         if (collision.collider.tag == "IcePowerup")
         {
+            audioManager.Play("IcePowerup");
             Destroy(collision.gameObject);
             //change ice block physics material
             iceBlock.GetComponent<BoxCollider2D>().sharedMaterial = iceBlockMaterial;
@@ -164,7 +178,8 @@ public class DruidControl : MonoBehaviour
 
         //If player hits kill object run death sequence and start respawn coroutine
         if ((collision.collider.tag == "killObject") || (collision.collider.tag == "EnemyBody") || (collision.collider.tag == "enemyMask"))
-        {           
+        {   
+            audioManager.Play("FrogDeath1");        
             anim.SetTrigger("death");
             body.velocity = new Vector2(body.velocity.x, 8);
             body.gravityScale = 5f;
@@ -178,6 +193,7 @@ public class DruidControl : MonoBehaviour
         //If collide with melon change gravity and tint green
         if (collision.gameObject.tag == "GravPowerup")
         {
+            audioManager.Play("MelonPowerup");
             collision.gameObject.SetActive(false);
             body.gravityScale = gravPower;
             GetComponent<SpriteRenderer>().color = Color.green;

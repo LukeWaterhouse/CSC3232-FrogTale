@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8354177053424577170}
   m_Layer: 0
   m_Name: Flock Agent
-  m_TagString: Untagged
+  m_TagString: Tadpole
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -47,9 +47,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.013235092, y: 0.008823395}
+  m_Offset: {x: -0.023887634, y: -0.016033173}
   serializedVersion: 2
-  m_Radius: 0.24852943
+  m_Radius: 0.2755165
 --- !u!114 &2354436153924407471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,7 +74,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
