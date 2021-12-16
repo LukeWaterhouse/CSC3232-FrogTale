@@ -62,6 +62,7 @@ public class DruidControlLevel1 : DruidControlLevelBase
 
         if (collision.GetComponent<Collider2D>().tag == "EndLevel1")
         {
+            audioManager.Play("HomeSweetHome");
             StaticLevelBools.isLevel2Unlocked = true;
             levelFinished.GetComponent<SpriteRenderer>().enabled = true;
             Debug.Log("Ending Level 1");
@@ -73,6 +74,8 @@ public class DruidControlLevel1 : DruidControlLevelBase
 
     public override void OnCollisionEnter2D(Collision2D collision)
     {
+
+
         if (collision.gameObject.tag == "Ground")
         {
             grounded = true;
@@ -119,7 +122,6 @@ public class DruidControlLevel1 : DruidControlLevelBase
         //If player hits kill object run death sequence and start respawn coroutine
         if ((collision.collider.tag == "killObject") || (collision.collider.tag == "EnemyBody") || (collision.collider.tag == "enemyMask"))
         {   
-            audioManager.Play("FrogDeath1");        
             anim.SetTrigger("death");
             body.velocity = new Vector2(body.velocity.x, 8);
             body.gravityScale = 5f;

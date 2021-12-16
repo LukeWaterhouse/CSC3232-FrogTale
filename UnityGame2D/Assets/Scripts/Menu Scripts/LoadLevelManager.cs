@@ -9,6 +9,7 @@ public class LoadLevelManager : MonoBehaviour
 
 
     GameObject level2Barrier;
+    GameObject level3Barrier;
 
     //Static level bools
     GameObject staticLevelBools;
@@ -17,6 +18,7 @@ public class LoadLevelManager : MonoBehaviour
     void Awake()
     {
         level2Barrier = GameObject.Find("Level2Barrier");
+        level3Barrier = GameObject.Find("Level3Barrier");
 
         //find level bools
         staticLevelBools = GameObject.Find("StaticLevelBools");
@@ -32,6 +34,12 @@ public class LoadLevelManager : MonoBehaviour
         if (StaticLevelBools.isLevel2Unlocked)
         {
             Destroy(level2Barrier);
+        }
+
+
+        if (StaticLevelBools.isLevel3Unlocked)
+        {
+            Destroy(level3Barrier);
         }
         
     }

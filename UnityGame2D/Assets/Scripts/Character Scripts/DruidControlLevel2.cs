@@ -34,11 +34,12 @@ public class DruidControlLevel2 : DruidControlLevelBase
         //Level2 additions
         levelBarrier = GameObject.Find("Level2EndBarrier");
         keyText = GameObject.Find("KeyText").GetComponent<Text>();
-        InvokeRepeating("reScan", 3.0f, 3.0f);  
+        //InvokeRepeating("reScan", 3.0f, 3.0f);  
 
 
 
     }
+
 
     public override void OnCollisionEnter2D(Collision2D collision)
     {
@@ -84,7 +85,7 @@ public class DruidControlLevel2 : DruidControlLevelBase
             keyText.text = $"Keys: {keyCount}/8";
             if(keyCount == 8){
                 Destroy(levelBarrier);
-                keyText.text = "Barrier Destroyed!";
+                keyText.text = "Escape!";
             }
             Debug.Log(keyCount);
             Destroy(collision.gameObject);
@@ -96,8 +97,9 @@ public class DruidControlLevel2 : DruidControlLevelBase
     private void OnTriggerEnter2D(Collider2D collision){
         if (collision.GetComponent<Collider2D>().tag == "EndLevel2")
         {
-            StaticLevelBools.isLevel2Unlocked = true;
+            StaticLevelBools.isLevel3Unlocked = true;
             levelFinished.GetComponent<SpriteRenderer>().enabled = true;
+            audioManager.Play("HomeSweetHome");
             Debug.Log("Ending Level 2");
             StartCoroutine(EndLevel());
         }

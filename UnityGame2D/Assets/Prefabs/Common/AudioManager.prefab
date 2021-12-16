@@ -1,0 +1,166 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4036364202996027039
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4036364202996027037}
+  - component: {fileID: 4036364202996027036}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4036364202996027037
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4036364202996027039}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 51.5496, y: 2.9908, z: -51.67909}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4036364202996027036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4036364202996027039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9d1468e7bffac943b848f330cad71b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: FrogJump
+    clip: {fileID: 8300000, guid: ef12fc5440f481548beaff6ff3fe4e9d, type: 3}
+    volume: 0.61
+    pitch: 1
+    source: {fileID: 0}
+  - name: Checkpoint
+    clip: {fileID: 8300000, guid: f86933b59b63e9d44bf9ebc0d5049da7, type: 3}
+    volume: 0.61
+    pitch: 1
+    source: {fileID: 0}
+  - name: EnemyAngry
+    clip: {fileID: 8300000, guid: d6f2ad29b7377164aa304d1706823589, type: 3}
+    volume: 0.61
+    pitch: 1
+    source: {fileID: 0}
+  - name: EnemyDeath
+    clip: {fileID: 8300000, guid: 303f765873888a34c81dc13331adb3d7, type: 3}
+    volume: 0.61
+    pitch: 1
+    source: {fileID: 0}
+  - name: FrogDeath1
+    clip: {fileID: 8300000, guid: 7196845067846264c88126fc042f1023, type: 3}
+    volume: 0.61
+    pitch: 1
+    source: {fileID: 0}
+  - name: FrogDeath2
+    clip: {fileID: 8300000, guid: bea46a1da37a26e479dc593938d04dbe, type: 3}
+    volume: 0.61
+    pitch: 1
+    source: {fileID: 0}
+  - name: FrogDeath3
+    clip: {fileID: 8300000, guid: 965ffa20762ed004c8474441214cc767, type: 3}
+    volume: 0.61
+    pitch: 1
+    source: {fileID: 0}
+  - name: FrogDeath4
+    clip: {fileID: 8300000, guid: c8bb470303c9d7f4094e76b7446248fe, type: 3}
+    volume: 0.61
+    pitch: 1
+    source: {fileID: 0}
+  - name: IcePowerup
+    clip: {fileID: 8300000, guid: 2baddb9a7f4e2cf47bf3f8d74b9408d9, type: 3}
+    volume: 0.61
+    pitch: 1
+    source: {fileID: 0}
+  - name: KeyCollection
+    clip: {fileID: 8300000, guid: 9b260c34f4797cc47b78f89aacfb29df, type: 3}
+    volume: 0.61
+    pitch: 1
+    source: {fileID: 0}
+  - name: LeafShoot
+    clip: {fileID: 8300000, guid: 15c18cd8d6d829445b12a692e3ef7fe6, type: 3}
+    volume: 0.61
+    pitch: 1
+    source: {fileID: 0}
+  - name: MelonPowerup
+    clip: {fileID: 8300000, guid: d37864ca20cd85c41917ec40fadd9bf4, type: 3}
+    volume: 0.61
+    pitch: 1
+    source: {fileID: 0}
+  - name: SkullDeath
+    clip: {fileID: 8300000, guid: 848b52a58706b2248912dbaee78dae86, type: 3}
+    volume: 0.61
+    pitch: 1
+    source: {fileID: 0}
+  - name: WeaponPickup
+    clip: {fileID: 8300000, guid: 93117f6eae62a8e4186fc4bf5053bd58, type: 3}
+    volume: 0.61
+    pitch: 1
+    source: {fileID: 0}
+  - name: Pop
+    clip: {fileID: 8300000, guid: d8ba48e1f9169404082ae0d74583201a, type: 3}
+    volume: 0.61
+    pitch: 1
+    source: {fileID: 0}
+  - name: SkullExplode
+    clip: {fileID: 8300000, guid: 427f4a1395ae790488e00074c43eab65, type: 3}
+    volume: 0.942
+    pitch: 1
+    source: {fileID: 0}
+  - name: Splash
+    clip: {fileID: 8300000, guid: b298ef57a67da5f4090527a4fb31132f, type: 3}
+    volume: 0.61
+    pitch: 1
+    source: {fileID: 0}
+  - name: BringItOn
+    clip: {fileID: 8300000, guid: 7905a577200c8be4abea283f8d473369, type: 3}
+    volume: 0.61
+    pitch: 1
+    source: {fileID: 0}
+  - name: ChildrenSafe
+    clip: {fileID: 8300000, guid: 7ce4346f501b94449afa83e6381286ed, type: 3}
+    volume: 0.61
+    pitch: 1
+    source: {fileID: 0}
+  - name: HasKeyMoveOn
+    clip: {fileID: 8300000, guid: a4c7f164bec308e4ebd0ac487f4bd53a, type: 3}
+    volume: 0.61
+    pitch: 1
+    source: {fileID: 0}
+  - name: Heavy
+    clip: {fileID: 8300000, guid: cd31cd64dbda6224b8d8bce184f10659, type: 3}
+    volume: 0.61
+    pitch: 1
+    source: {fileID: 0}
+  - name: HomeSweetHome
+    clip: {fileID: 8300000, guid: 4f07678aa7eeb1c4ea349f99810accea, type: 3}
+    volume: 0.61
+    pitch: 1
+    source: {fileID: 0}
+  - name: WeaponClick
+    clip: {fileID: 8300000, guid: f440c2a182c118543a33815a871dc2f5, type: 3}
+    volume: 0.61
+    pitch: 1
+    source: {fileID: 0}
+  - name: Yikes
+    clip: {fileID: 8300000, guid: 1aa7bf3a1facb8a4fa74d5a8136edeef, type: 3}
+    volume: 0.61
+    pitch: 1
+    source: {fileID: 0}

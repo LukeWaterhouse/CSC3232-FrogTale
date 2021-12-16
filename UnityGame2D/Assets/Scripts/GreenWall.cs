@@ -52,18 +52,20 @@ public class GreenWall : MonoBehaviour
              for(var n = 0; n < 13; n++)
         {
             yield return new WaitForSeconds(0.1f);
-            sprite.color = new Color (1f,1f,1f,.2f);
+            sprite.color = new Color (1f,1f,1f,.6f);
             yield return new WaitForSeconds(0.1f);
             sprite.color = new Color (1f,1f,1f,1f);
           
         }
-         float randomTime = Random.Range(13, 22);
+            float randomTime = Random.Range(13, 22);
             Debug.Log("change colour");
             sprite.color = new Color (1f,1f,1f,.2f);
             gameObject.layer = 0;
             wallCollider.enabled = false;
             isTransparent = true;
             Invoke("ChangeWallStatus", randomTime);
+
+            AstarPath.active.UpdateGraphs(gameObject.GetComponent<Collider2D>().bounds);
         }
 
 
@@ -74,15 +76,17 @@ public class GreenWall : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
             sprite.color = new Color (1f,1f,1f,.2f);
             yield return new WaitForSeconds(0.1f);
-            sprite.color = new Color (1f,1f,1f,1f);
+            sprite.color = new Color (1f,1f,1f,0.6f);
           
         }
-         float randomTime = Random.Range(13, 22);
+            float randomTime = Random.Range(13, 22);
             Debug.Log("change colour");
             sprite.color = new Color (1f,1f,1f,1f);
             gameObject.layer = 12;
             wallCollider.enabled = true;
             isTransparent = false;
             Invoke("ChangeWallStatus", randomTime);
+
+            AstarPath.active.UpdateGraphs(gameObject.GetComponent<Collider2D>().bounds);
         }
 }

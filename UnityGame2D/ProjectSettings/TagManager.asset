@@ -31,6 +31,9 @@ TagManager:
   - EndLevel2
   - Tadpole
   - Boing
+  - Splash
+  - Level3
+  - EndLevel3
   layers:
   - Default
   - TransparentFX
@@ -46,8 +49,8 @@ TagManager:
   - Portal
   - Obstacle
   - MenuButton
-  - 
-  - 
+  - Key
+  - Skull
   - 
   - 
   - 
@@ -67,4 +70,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 298623799
     locked: 0

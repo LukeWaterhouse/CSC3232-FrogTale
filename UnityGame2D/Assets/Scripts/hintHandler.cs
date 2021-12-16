@@ -50,6 +50,8 @@ public class hintHandler : MonoBehaviour
     public bool bossIsAngry = false;
     public bool hasShownAngryHint = false;
 
+    public AudioManager audioManager;
+
 
     // Start is called before the first frame update
     void Awake()
@@ -63,6 +65,8 @@ public class hintHandler : MonoBehaviour
         bossWithWeapon = GameObject.Find("bossWithWeapon"); //done
         thisIsHeavy = GameObject.Find("ThisIsHeavy"); //done
         bossIsAngryHint = GameObject.Find("AngryBossMessage"); //done
+
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     void Update()
@@ -142,8 +146,10 @@ public class hintHandler : MonoBehaviour
     {
         ResetHints();
         hint.GetComponent<SpriteRenderer>().enabled = true;
+        audioManager.Play("Heavy");
         yield return new WaitForSeconds(10);
         hint.GetComponent<SpriteRenderer>().enabled = false;
+        
     }
 
 
@@ -154,8 +160,10 @@ public class hintHandler : MonoBehaviour
         ResetHints();      
         yield return new WaitForSeconds(2);
         hint.GetComponent<SpriteRenderer>().enabled = true;
+        audioManager.Play("BringItOn");
         yield return new WaitForSeconds(6);
         hint.GetComponent<SpriteRenderer>().enabled = false;
+        
     }
 
 
@@ -166,8 +174,10 @@ public class hintHandler : MonoBehaviour
         ResetHints();    
         yield return new WaitForSeconds(2);       
         hint.GetComponent<SpriteRenderer>().enabled = true;
+        audioManager.Play("Yikes"); 
         yield return new WaitForSeconds(12);
-        hint.GetComponent<SpriteRenderer>().enabled = false;      
+        hint.GetComponent<SpriteRenderer>().enabled = false;
+             
     }
 
 
@@ -181,10 +191,12 @@ public class hintHandler : MonoBehaviour
         if (!HasShotYet)
         {
             hint.GetComponent<SpriteRenderer>().enabled = true;
+            audioManager.Play("WeaponClick");
             yield return new WaitForSeconds(10);
             hint.GetComponent<SpriteRenderer>().enabled = false;
             //Make loop restart 
             ShownShootLeafSlingerHintYet = false;
+            
         }
     }
 
@@ -198,6 +210,7 @@ public class hintHandler : MonoBehaviour
         if (!Checkpoint1Reached)
         {
             hint.GetComponent<SpriteRenderer>().enabled = true;
+            audioManager.Play("HasKeyMoveOn");
             yield return new WaitForSeconds(6);
             hint.GetComponent<SpriteRenderer>().enabled = false;
             //Make loop restart 
@@ -212,6 +225,7 @@ public class hintHandler : MonoBehaviour
         if (!Checkpoint2Reached)
         {
             hint.GetComponent<SpriteRenderer>().enabled = true;
+            audioManager.Play("HasKeyMoveOn");
             yield return new WaitForSeconds(6);
             hint.GetComponent<SpriteRenderer>().enabled = false;
             //Make loop restart 
@@ -226,6 +240,7 @@ public class hintHandler : MonoBehaviour
         if (!Checkpoint3Reached)
         {
             hint.GetComponent<SpriteRenderer>().enabled = true;
+            audioManager.Play("HasKeyMoveOn");
             yield return new WaitForSeconds(6);
             hint.GetComponent<SpriteRenderer>().enabled = false;
             //Make loop restart 
@@ -239,7 +254,7 @@ public class hintHandler : MonoBehaviour
     {
         areaComplete.GetComponent<SpriteRenderer>().enabled = false;
         hasntShotYet.GetComponent<SpriteRenderer>().enabled = false;
-        noWeaponYet.GetComponent<SpriteRenderer>().enabled = false;
+        //noWeaponYet.GetComponent<SpriteRenderer>().enabled = false;
         bossWithWeapon.GetComponent<SpriteRenderer>().enabled = false;
         thisIsHeavy.GetComponent<SpriteRenderer>().enabled = false;
         bossIsAngryHint.GetComponent<SpriteRenderer>().enabled = false;

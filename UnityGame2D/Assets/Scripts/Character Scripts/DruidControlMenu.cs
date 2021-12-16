@@ -29,5 +29,11 @@ public class DruidControlMenu : DruidControlBase
             Debug.Log("Load Level 2");
             loadlevel("Level2");
         }
+
+         if (collision.gameObject.tag == "Level3")
+        {
+            Debug.Log("Load Level 3");
+            loadlevel("Level3");
+        }
     }
 }

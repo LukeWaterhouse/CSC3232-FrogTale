@@ -8,6 +8,10 @@ using UnityEngine.SceneManagement;
 public class DruidControlBase : MonoBehaviour
 
 {
+
+
+    public ParticleSystem dust;
+
     //Frog player stats
     [SerializeField] public float moveSpeed = 8;
     [SerializeField] public float jumpPower = 3;
@@ -32,7 +36,7 @@ public class DruidControlBase : MonoBehaviour
         
     }
 
-    public void Update()
+    public virtual void Update()
     {
         //Character Controller
         float horizontalInput = Input.GetAxis("Horizontal");
@@ -51,6 +55,7 @@ public class DruidControlBase : MonoBehaviour
         //Jumping
         if ((Input.GetKey(KeyCode.Space))  && grounded)
         {
+
             audioManager.Play("FrogJump");
             Jump();
             
@@ -64,7 +69,9 @@ public class DruidControlBase : MonoBehaviour
 
     //Jump Method
     public void Jump()
-    {       
+    {     
+        Debug.Log("JuMP");  
+        CreateDust();
         body.velocity = new Vector2( body.velocity.x, jumpPower);
         anim.SetTrigger("jump");
         grounded = false;
@@ -86,6 +93,11 @@ public class DruidControlBase : MonoBehaviour
     {
         SceneManager.LoadScene(level);
 
+    }
+
+
+    public void CreateDust(){
+        dust.Play();
     }
 
 }
