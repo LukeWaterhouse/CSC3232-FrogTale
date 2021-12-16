@@ -14,7 +14,7 @@ public class DruidControlLevel2 : DruidControlLevelBase
     public int keyCount = 0;
 
 
-     public override void Awake()
+    public override void Awake()
     {
 
         //base class stuff
@@ -34,9 +34,6 @@ public class DruidControlLevel2 : DruidControlLevelBase
         //Level2 additions
         levelBarrier = GameObject.Find("Level2EndBarrier");
         keyText = GameObject.Find("KeyText").GetComponent<Text>();
-        //InvokeRepeating("reScan", 3.0f, 3.0f);  
-
-
 
     }
 
@@ -48,14 +45,15 @@ public class DruidControlLevel2 : DruidControlLevelBase
             grounded = true;
         }
 
+        //play bounce sound if bouncing on block
         if (collision.gameObject.tag == "Boing")
         {
             audioManager.Play("FrogJump");
         }
-     
+
         //If player hits kill object run death sequence and start respawn coroutine
         if ((collision.collider.tag == "killObject") || (collision.collider.tag == "EnemyBody") || (collision.collider.tag == "enemyMask"))
-        {           
+        {
             anim.SetTrigger("death");
             body.velocity = new Vector2(body.velocity.x, 8);
             body.gravityScale = 5f;
@@ -77,24 +75,29 @@ public class DruidControlLevel2 : DruidControlLevelBase
             StartCoroutine(StatReset(collision.gameObject));
         }
 
-
-         if(collision.gameObject.tag == "key"){
+        //change ui for picking up keys, and destroy key on pickup
+        if (collision.gameObject.tag == "key")
+        {
             Debug.Log("collided!");
             audioManager.Play("KeyCollection");
             keyCount += 1;
             keyText.text = $"Keys: {keyCount}/8";
-            if(keyCount == 8){
+            if (keyCount == 8)
+            {
                 Destroy(levelBarrier);
                 keyText.text = "Escape!";
             }
             Debug.Log(keyCount);
             Destroy(collision.gameObject);
-        }    
-      
+        }
+
     }
 
 
-    private void OnTriggerEnter2D(Collider2D collision){
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        //end level 2 when home
         if (collision.GetComponent<Collider2D>().tag == "EndLevel2")
         {
             StaticLevelBools.isLevel3Unlocked = true;
@@ -105,8 +108,4 @@ public class DruidControlLevel2 : DruidControlLevelBase
         }
     }
 
-         void reScan(){
-        AstarPath.active.Scan();
-        Debug.Log("scanning");
-    }
 }

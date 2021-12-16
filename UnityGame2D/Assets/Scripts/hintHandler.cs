@@ -94,14 +94,14 @@ public class hintHandler : MonoBehaviour
         }
 
         //Has LeafSlinger but isn't shooting it for a while
-        if(LeafSlingerAcquired && !ShownShootLeafSlingerHintYet)
+        if (LeafSlingerAcquired && !ShownShootLeafSlingerHintYet)
         {
             StartCoroutine(ShowShootLeafSlingerHint(hasntShotYet));
             ShownShootLeafSlingerHintYet = true;
         }
 
         //Entering Boss area without a weapon
-        if(!LeafSlingerAcquired && EnteredPurplePortal && !HasShownnoWeaponHintYet)
+        if (!LeafSlingerAcquired && EnteredPurplePortal && !HasShownnoWeaponHintYet)
         {
             StartCoroutine(ShowNoWeaponYetHint(noWeaponYet));
             HasShownnoWeaponHintYet = true;
@@ -149,7 +149,7 @@ public class hintHandler : MonoBehaviour
         audioManager.Play("Heavy");
         yield return new WaitForSeconds(10);
         hint.GetComponent<SpriteRenderer>().enabled = false;
-        
+
     }
 
 
@@ -157,13 +157,13 @@ public class hintHandler : MonoBehaviour
 
     public IEnumerator ShowBossWithWeaponHint(GameObject hint)
     {
-        ResetHints();      
+        ResetHints();
         yield return new WaitForSeconds(2);
         hint.GetComponent<SpriteRenderer>().enabled = true;
         audioManager.Play("BringItOn");
         yield return new WaitForSeconds(6);
         hint.GetComponent<SpriteRenderer>().enabled = false;
-        
+
     }
 
 
@@ -171,13 +171,13 @@ public class hintHandler : MonoBehaviour
 
     public IEnumerator ShowNoWeaponYetHint(GameObject hint)
     {
-        ResetHints();    
-        yield return new WaitForSeconds(2);       
+        ResetHints();
+        yield return new WaitForSeconds(2);
         hint.GetComponent<SpriteRenderer>().enabled = true;
-        audioManager.Play("Yikes"); 
+        audioManager.Play("Yikes");
         yield return new WaitForSeconds(12);
         hint.GetComponent<SpriteRenderer>().enabled = false;
-             
+
     }
 
 
@@ -185,8 +185,8 @@ public class hintHandler : MonoBehaviour
     //Has LeafSlinger but isn't shooting it for a while Method:
 
     public IEnumerator ShowShootLeafSlingerHint(GameObject hint)
-    {        
-        ResetHints();       
+    {
+        ResetHints();
         yield return new WaitForSeconds(4);
         if (!HasShotYet)
         {
@@ -196,7 +196,7 @@ public class hintHandler : MonoBehaviour
             hint.GetComponent<SpriteRenderer>().enabled = false;
             //Make loop restart 
             ShownShootLeafSlingerHintYet = false;
-            
+
         }
     }
 
@@ -254,10 +254,9 @@ public class hintHandler : MonoBehaviour
     {
         areaComplete.GetComponent<SpriteRenderer>().enabled = false;
         hasntShotYet.GetComponent<SpriteRenderer>().enabled = false;
-        //noWeaponYet.GetComponent<SpriteRenderer>().enabled = false;
         bossWithWeapon.GetComponent<SpriteRenderer>().enabled = false;
         thisIsHeavy.GetComponent<SpriteRenderer>().enabled = false;
         bossIsAngryHint.GetComponent<SpriteRenderer>().enabled = false;
-}
-    
+    }
+
 }

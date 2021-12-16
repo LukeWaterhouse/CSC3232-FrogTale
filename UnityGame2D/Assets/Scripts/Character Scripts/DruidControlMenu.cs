@@ -9,7 +9,7 @@ public class DruidControlMenu : DruidControlBase
 
 {
     public override void OnCollisionEnter2D(Collision2D collision)
-   {
+    {
         if (collision.gameObject.tag == "Ground")
         {
             grounded = true;
@@ -30,7 +30,8 @@ public class DruidControlMenu : DruidControlBase
             loadlevel("Level2");
         }
 
-         if (collision.gameObject.tag == "Level3")
+        //Load level 3 if level 3 portal hit
+        if (collision.gameObject.tag == "Level3")
         {
             Debug.Log("Load Level 3");
             loadlevel("Level3");

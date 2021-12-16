@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Flock : MonoBehaviour
 {
+    //Disclaimer: This is adpated from a youtube series on flocking
 
     public FlockAgent agentPrefab;
 
@@ -33,17 +34,19 @@ public class Flock : MonoBehaviour
     public float SquareAvoidanceRadius { get { return squareAvoidanceRadius; } }
 
 
-    void Start(){
+    void Start()
+    {
 
         squareMaxSpeed = maxSpeed * maxSpeed;
         squareNeighbourRadius = neighbourRadius * neighbourRadius;
         squareAvoidanceRadius = squareNeighbourRadius * avoidanceRadiusMultiplier * avoidanceRadiusMultiplier;
 
-        for (int i = 0; i< startingCount; i++){
+        for (int i = 0; i < startingCount; i++)
+        {
             FlockAgent newAgent = Instantiate(
                 agentPrefab,
                 //changed this to set position to parents
-                (Random.insideUnitCircle * startingCount * AgentDensity)+(Vector2)(transform.position),
+                (Random.insideUnitCircle * startingCount * AgentDensity) + (Vector2)(transform.position),
                 Quaternion.Euler(Vector3.forward * Random.Range(0f, 360f)),
                 transform
 
@@ -58,7 +61,8 @@ public class Flock : MonoBehaviour
 
     void Update()
     {
-        foreach(FlockAgent agent in agents){
+        foreach (FlockAgent agent in agents)
+        {
 
             List<Transform> context = GetNearbyObjects(agent);
 
@@ -68,7 +72,8 @@ public class Flock : MonoBehaviour
 
             Vector2 move = behaviour.CalculateMove(agent, context, this);
             move *= driveFactor;
-            if(move.sqrMagnitude > squareMaxSpeed){
+            if (move.sqrMagnitude > squareMaxSpeed)
+            {
                 move = move.normalized * maxSpeed;
             }
 
@@ -77,11 +82,14 @@ public class Flock : MonoBehaviour
         }
     }
 
-    List<Transform> GetNearbyObjects(FlockAgent agent){
+    List<Transform> GetNearbyObjects(FlockAgent agent)
+    {
         List<Transform> context = new List<Transform>();
         Collider2D[] contextColliders = Physics2D.OverlapCircleAll(agent.transform.position, neighbourRadius);
-        foreach(Collider2D c in contextColliders){
-            if (c != agent.AgentCollider){
+        foreach (Collider2D c in contextColliders)
+        {
+            if (c != agent.AgentCollider)
+            {
                 context.Add(c.transform);
             }
         }

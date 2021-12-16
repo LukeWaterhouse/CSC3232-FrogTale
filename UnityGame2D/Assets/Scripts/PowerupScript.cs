@@ -21,11 +21,6 @@ public class PowerupScript : MonoBehaviour
         this.enabled = true;
 
     }
-
-    private void Timer()
-    {
-
-    }
 }
 
 

@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu(menuName = "Flock/Behaviour/Alignment")]
 
+
+//Disclaimer: This is adpated from a youtube series on flocking
 public class AlignmentBehaviour : FilteredFlockingBehaviour
 {
-      public override Vector2 CalculateMove(FlockAgent agent, List<Transform> context, Flock flock)
+    public override Vector2 CalculateMove(FlockAgent agent, List<Transform> context, Flock flock)
     {
         //if no neighbors, maintain current alignment
         if (context.Count == 0)

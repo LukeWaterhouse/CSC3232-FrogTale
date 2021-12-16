@@ -7,21 +7,21 @@ using UnityEngine.SceneManagement;
 
 public class DruidControlLevel1 : DruidControlLevelBase
 
-{  
+{
 
     //Picked up LeafSlingerCheck
     public bool leafSlingerPickedUp = false;
 
     //LeafSlinger aim object
     GameObject shootingObject;
-    
+
     //Referencing physics materials
     [SerializeField] public PhysicsMaterial2D iceBlockMaterial;
     [SerializeField] public PhysicsMaterial2D highFrictionMaterial;
 
     GameObject iceBlock;
 
-   
+
 
     public override void Awake()
     {
@@ -49,17 +49,18 @@ public class DruidControlLevel1 : DruidControlLevelBase
         //find level finished method;
         levelFinished = GameObject.Find("FinishedLevel");
 
-
-
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+
+        //notify hint hander if entered purple portal
         if (collision.GetComponent<Collider2D>().tag == "purplePortal")
         {
             hintHandler.EnteredPurplePortal = true;
         }
 
+        //end level when home
         if (collision.GetComponent<Collider2D>().tag == "EndLevel1")
         {
             audioManager.Play("HomeSweetHome");
@@ -91,7 +92,8 @@ public class DruidControlLevel1 : DruidControlLevelBase
             gameObject.transform.position = new Vector2(59.5f, 32f);
         }
 
-        if(collision.collider.tag == "LeafSlinger")
+
+        if (collision.collider.tag == "LeafSlinger")
         {
             audioManager.Play("WeaponPickup");
             leafSlingerPickedUp = true;
@@ -121,7 +123,7 @@ public class DruidControlLevel1 : DruidControlLevelBase
 
         //If player hits kill object run death sequence and start respawn coroutine
         if ((collision.collider.tag == "killObject") || (collision.collider.tag == "EnemyBody") || (collision.collider.tag == "enemyMask"))
-        {   
+        {
             anim.SetTrigger("death");
             body.velocity = new Vector2(body.velocity.x, 8);
             body.gravityScale = 5f;

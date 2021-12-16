@@ -9,7 +9,7 @@ using Random = System.Random;
 
 public class DruidControlLevelBase : DruidControlBase
 
-{  
+{
     //Instantiate Hinthandler
     public hintHandler hintHandler;
 
@@ -20,7 +20,7 @@ public class DruidControlLevelBase : DruidControlBase
     //Instantiate Level Finished message
     public GameObject levelFinished;
 
-     //grav powerup strength
+    //grav powerup strength
     [SerializeField] public float gravPower = 0.1f;
 
 
@@ -60,12 +60,12 @@ public class DruidControlLevelBase : DruidControlBase
 
         //If player hits kill object run death sequence and start respawn coroutine
         if ((collision.collider.tag == "killObject") || (collision.collider.tag == "EnemyBody") || (collision.collider.tag == "enemyMask"))
-        {   
-            GetComponent<CapsuleCollider2D>().enabled = false; 
+        {
+            GetComponent<CapsuleCollider2D>().enabled = false;
             anim.SetTrigger("death");
             body.velocity = new Vector2(body.velocity.x, 8);
             body.gravityScale = 5f;
-            
+
             Camera.main.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
             Camera.main.GetComponent<CameraControl>().enabled = false;
 
@@ -83,56 +83,54 @@ public class DruidControlLevelBase : DruidControlBase
         }
     }
 
-        public IEnumerator StatReset(GameObject collision)
+    public IEnumerator StatReset(GameObject collision)
+    {
+        yield return new WaitForSeconds(3);
+        body.gravityScale = 1.8f;
+        GetComponent<SpriteRenderer>().color = Color.white;
+        collision.SetActive(true);
+    }
+
+    public IEnumerator Respawn(GameObject collision)
+    {
+
+        //Randomly play a death sound 
+        randomNumber = rand.Next(4);
+
+        switch (randomNumber)
         {
-            yield return new WaitForSeconds(3);
-            body.gravityScale = 1.8f;
-            GetComponent<SpriteRenderer>().color = Color.white;
-            collision.SetActive(true);
+            case 0:
+                audioManager.Play("FrogDeath1");
+                break;
+            case 1:
+                audioManager.Play("FrogDeath2");
+                break;
+            case 2:
+                audioManager.Play("FrogDeath3");
+                break;
+            case 3:
+                audioManager.Play("FrogDeath4");
+                break;
+            default:
+                break;
         }
 
-        public IEnumerator Respawn(GameObject collision)
-        {
-            Debug.Log("Respawning");
-            randomNumber = rand.Next(4);
-            Debug.Log(randomNumber);
 
 
-            switch(randomNumber) 
-                {
-                case 0:
-                    audioManager.Play("FrogDeath1");  
-                    break;
-                case 1:
-                    audioManager.Play("FrogDeath2");  
-                    break;
-                case 2:
-                    audioManager.Play("FrogDeath3");  
-                    break;
-                case 3:
-                    audioManager.Play("FrogDeath4");  
-                    break;
-                default:
-                    break;
-                }
+        yield return new WaitForSeconds(2);
+        body.velocity = new Vector2(0, 0);
+        GetComponent<CapsuleCollider2D>().enabled = true;
+        body.gravityScale = 1.8f;
+        Camera.main.GetComponent<CameraControl>().enabled = true;
+        gameObject.transform.position = coord1;
+        anim.SetTrigger("jump");
+    }
 
-
-
-            yield return new WaitForSeconds(2);
-            body.velocity = new Vector2(0, 0);
-            GetComponent<CapsuleCollider2D>().enabled = true;
-            body.gravityScale = 1.8f;
-            Camera.main.GetComponent<CameraControl>().enabled = true;
-            Debug.Log(coord1);
-            gameObject.transform.position = coord1;
-            anim.SetTrigger("jump");
-        }
-
-        public IEnumerator EndLevel()
-        {
-            yield return new WaitForSeconds(7);
-            loadlevel("MainMenu");
-        }
+    public IEnumerator EndLevel()
+    {
+        yield return new WaitForSeconds(7);
+        loadlevel("MainMenu");
+    }
 
 
 }

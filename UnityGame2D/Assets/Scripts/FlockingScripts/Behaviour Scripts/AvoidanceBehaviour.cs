@@ -5,6 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Flock/Behaviour/Avoidance")]
 public class AvoidanceBehaviour : FilteredFlockingBehaviour
 {
+    //Disclaimer: This is adpated from a youtube series on flocking
+
     public override Vector2 CalculateMove(FlockAgent agent, List<Transform> context, Flock flock)
     {
         //if no neighbors, return no adjustment
@@ -19,16 +21,18 @@ public class AvoidanceBehaviour : FilteredFlockingBehaviour
         {
             Vector3 closestPoint = item.gameObject.GetComponent<Collider2D>().ClosestPoint(agent.transform.position);
 
-            if(Vector2.SqrMagnitude(closestPoint - agent.transform.position) < flock.SquareAvoidanceRadius){
+            if (Vector2.SqrMagnitude(closestPoint - agent.transform.position) < flock.SquareAvoidanceRadius)
+            {
 
                 nAvoid++;
                 avoidanceMove += (Vector2)(agent.transform.position - closestPoint);
 
             }
-            
+
         }
-        
-        if(nAvoid > 0){
+
+        if (nAvoid > 0)
+        {
             avoidanceMove /= nAvoid;
         }
         return avoidanceMove;

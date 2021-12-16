@@ -4,7 +4,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Flock/Behaviour/SteeredCohesion")]
 public class SteeredCohesionBehaviour : FilteredFlockingBehaviour
 {
-    
+
+    //Disclaimer: This is adpated from a youtube series on flocking
 
     Vector2 currentVelocity;
     public float agentSmoothTime = 0.5f;

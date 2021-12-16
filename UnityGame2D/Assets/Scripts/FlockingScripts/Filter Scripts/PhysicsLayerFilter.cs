@@ -5,6 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Flock/Filter/Physics Layer")]
 public class PhysicsLayerFilter : ContextFilter
 {
+
+    //Disclaimer: This is adpated from a youtube series on flocking
+
     public LayerMask mask;
 
     public override List<Transform> Filter(FlockAgent agent, List<Transform> original)
